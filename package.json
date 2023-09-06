@@ -15,9 +15,8 @@
   "name": "duccem-new",
   "packageManager": "npm@9.5.1",
   "workspaces": [
-    "src/apps/*",
-    "src/contexts/shared/*",
-    "src/contexts/*",
+    "src/apps/**/*",
+    "src/contexts/**/*",
     "src/packages/*"
   ]
 }

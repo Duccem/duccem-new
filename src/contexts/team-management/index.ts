@@ -1,5 +1,5 @@
 export class Test {
     public test() {
-        return 'Hello World perras';
+        return 'Probando el refresh';
     }
 }
