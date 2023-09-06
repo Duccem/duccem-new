@@ -2,11 +2,29 @@
   "name": "core",
   "version": "0.0.0",
   "description": "",
+  "type": "module",
   "main": "./dist/index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@apollo/client": "^3.8.3",
+    "amqplib": "^0.10.3",
+    "capitalize": "^2.0.4",
+    "cloudinary": "^1.40.0",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "mongodb": "^6.0.0",
+    "pluralize": "^8.0.0",
+    "redis": "^4.6.8",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.1",
+    "@types/capitalize": "^2.0.0",
+    "@types/pluralize": "^0.0.30",
+    "@types/uuid": "^9.0.3"
+  }
 }
