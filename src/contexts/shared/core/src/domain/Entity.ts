@@ -4,9 +4,9 @@ import { Uuid } from './ValueObjects/generics/Uuid';
 import { DateValueObject } from './ValueObjects/primitives/DateValueObject';
 
 export abstract class Entity extends BaseObject {
-  public id: Uuid;
-  public createdAt: DateValueObject;
-  public updatedAt: DateValueObject;
+  public id?: Uuid;
+  public createdAt?: DateValueObject;
+  public updatedAt?: DateValueObject;
 
   constructor(data: Primitives<Entity>) {
     super();

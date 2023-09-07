@@ -1,0 +1,1 @@
+{"version":3,"file":"DomainEventSerializer.d.ts","sourceRoot":"","sources":["../../../../src/infrastructure/Events/DomainEventSerializer.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,MAAM,0BAA0B,CAAC;AAEvD,qBAAa,qBAAqB;IAChC,MAAM,CAAC,SAAS,CAAC,KAAK,EAAE,WAAW,GAAG,MAAM;CAW7C"}

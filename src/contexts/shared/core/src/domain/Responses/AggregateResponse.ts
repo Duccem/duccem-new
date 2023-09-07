@@ -1,4 +1,4 @@
-import { Aggregate } from '../../Aggregate';
+import { Aggregate } from '../Aggregate';
 import { Response } from '../Response';
 
 export class AggregateResponse extends Response {

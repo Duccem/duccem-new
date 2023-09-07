@@ -12,5 +12,6 @@
     "declarationMap": true,
     "target": "ES2021",
     "sourceMap": true,
+    "skipLibCheck": true,
   },
 }

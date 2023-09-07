@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { Color, Decorator, FormatDates, LogTypes, Logger } from '../../domain/Services/Logger';
+import { Color, Decorator, FormatDates, LogTypes, Logger } from '../domain/Logger';
 
 export class CustomLogger extends Logger {
   log(message: any): void {

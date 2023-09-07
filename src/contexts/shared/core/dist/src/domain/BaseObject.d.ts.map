@@ -1,0 +1,1 @@
+{"version":3,"file":"BaseObject.d.ts","sourceRoot":"","sources":["../../../src/domain/BaseObject.ts"],"names":[],"mappings":"AAAA,8BAAsB,UAAU;aACd,YAAY,IAAI,GAAG;IAC5B,YAAY;;;WAGL,OAAO,CAAC,QAAQ,EAAE,GAAG,EAAE,GAAG,KAAK,CAAC,GAAG,CAAC;CAGnD"}

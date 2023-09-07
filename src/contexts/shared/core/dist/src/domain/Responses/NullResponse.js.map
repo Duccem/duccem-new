@@ -1,0 +1,1 @@
+{"version":3,"file":"NullResponse.js","sourceRoot":"","sources":["../../../../src/domain/Responses/NullResponse.ts"],"names":[],"mappings":";;;AAAA,0CAAuC;AAEvC,MAAa,YAAa,SAAQ,mBAAQ;IACxC,YAAY,OAAe;QACzB,KAAK,CAAC,OAAO,EAAE,GAAG,CAAC,CAAC;IACtB,CAAC;IAEM,cAAc;QACnB,OAAO;YACL,IAAI,EAAE,IAAI,CAAC,IAAI;YACf,OAAO,EAAE,IAAI,CAAC,OAAO;SACtB,CAAC;IACJ,CAAC;CACF;AAXD,oCAWC"}

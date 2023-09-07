@@ -1,0 +1,1 @@
+{"version":3,"file":"Uploader.d.ts","sourceRoot":"","sources":["../../../src/domain/Uploader.ts"],"names":[],"mappings":"AAAA,8BAAsB,QAAQ;aACZ,MAAM,CAAC,IAAI,EAAE,MAAM,GAAG,OAAO,CAAC,gBAAgB,CAAC;CAChE;AAED,MAAM,MAAM,gBAAgB,GAAG;IAC7B,SAAS,EAAE,MAAM,CAAC;IAClB,GAAG,EAAE,MAAM,CAAC;CACb,CAAC"}

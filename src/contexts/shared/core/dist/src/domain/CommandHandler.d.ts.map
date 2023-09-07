@@ -1,0 +1,1 @@
+{"version":3,"file":"CommandHandler.d.ts","sourceRoot":"","sources":["../../../src/domain/CommandHandler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,WAAW,CAAC;AAEpC,MAAM,WAAW,cAAc,CAAC,CAAC,SAAS,OAAO;IAC/C,YAAY,IAAI,OAAO,CAAC;IACxB,MAAM,CAAC,OAAO,EAAE,CAAC,GAAG,OAAO,CAAC,IAAI,CAAC,CAAC;CACnC"}
