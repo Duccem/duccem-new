@@ -1,7 +1,10 @@
-import { Command } from '@ducen/shared/core';
+import { Command } from 'core';
 
 export class CreateSessionCommand extends Command {
-  constructor(public readonly guildId: string, public readonly period: string) {
+  constructor(
+    public readonly guildId: string,
+    public readonly period: string,
+  ) {
     super();
   }
 }

@@ -1,1 +1,0 @@
-{"version":3,"file":"QueryHandler.d.ts","sourceRoot":"","sources":["../../../src/domain/QueryHandler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,SAAS,CAAC;AAChC,MAAM,WAAW,YAAY,CAAC,CAAC,SAAS,KAAK;IAC3C,YAAY,IAAI,KAAK,CAAC;IACtB,MAAM,CAAC,KAAK,EAAE,CAAC,GAAG,OAAO,CAAC,GAAG,CAAC,CAAC;CAChC"}

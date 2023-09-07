@@ -1,1 +1,0 @@
-{"version":3,"file":"CustomResponse.d.ts","sourceRoot":"","sources":["../../../../src/domain/Responses/CustomResponse.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,aAAa,CAAC;AAEvC,qBAAa,cAAe,SAAQ,QAAQ;IAC1C,QAAQ,CAAC,IAAI,EAAE,GAAG,CAAC;gBACP,OAAO,EAAE,MAAM,EAAE,IAAI,EAAE,GAAG;IAI/B,cAAc;;;;;CAOtB"}

@@ -1,7 +1,7 @@
-import { DateValueObject, Entity, Primitives, StringValueObject } from 'core';
+import { BaseObject, DateValueObject, Primitives, StringValueObject } from 'core';
 import { GuildPlan } from './GuildPlan';
 
-export class GuildConfiguration extends Entity {
+export class GuildConfiguration extends BaseObject {
   category: StringValueObject;
   plan: GuildPlan;
   timezone: StringValueObject;

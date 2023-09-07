@@ -1,4 +1,4 @@
-import { Query } from '@ducen/shared/core';
+import { Query } from 'core';
 
 export class GetLastSessionQuery extends Query {
   constructor(public readonly guildId: string) {

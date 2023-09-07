@@ -1,4 +1,4 @@
-import { Command, CommandHandler, Primitives, Uuid } from '@ducen/shared/core';
+import { Command, CommandHandler, Primitives, Uuid } from 'core';
 import { GuildNotFoundError } from '../../../Guild/domain/GuildNotFoundError';
 import { GuildRepository } from '../../../Guild/domain/GuildRepository';
 import { Payment } from '../../domain/Payment';
@@ -11,7 +11,7 @@ export class CreateSessionHandler implements CommandHandler<CreateSessionCommand
   constructor(
     private readonly guildRepository: GuildRepository,
     private readonly paymentRepository: PaymentRepository,
-    private readonly paymentService: PaymentService
+    private readonly paymentService: PaymentService,
   ) {}
   subscribedTo(): Command {
     return CreateSessionCommand;

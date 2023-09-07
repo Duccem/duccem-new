@@ -1,4 +1,4 @@
-import { FormatError } from '@ducen/shared/core';
+import { FormatError } from 'core';
 
 export class MemberAlreadyExistError extends FormatError {
   constructor(name: string) {

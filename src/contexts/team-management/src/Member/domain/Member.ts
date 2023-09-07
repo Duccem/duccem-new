@@ -2,7 +2,7 @@ import { Aggregate, Email, Image, Primitives, StringValueObject, Uuid } from 'co
 import jwt from 'jsonwebtoken';
 import { MemberAddress } from './MemberAddress';
 import { MemberBirthDate } from './MemberBirthDate';
-import { MemberConfiguration } from './MemberCofiguration';
+import { MemberConfiguration } from './MemberConfiguration';
 import { MemberCreatedDomainEvent } from './MemberCreatedDomainEvent';
 import { MemberGender } from './MemberGender';
 import { MemberPassword } from './MemberPassword';

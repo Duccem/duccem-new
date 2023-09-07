@@ -1,1 +1,0 @@
-{"version":3,"file":"InternalError.js","sourceRoot":"","sources":["../../../../src/domain/Errors/InternalError.ts"],"names":[],"mappings":";;;AAAA,oCAAiC;AAEjC,MAAa,aAAc,SAAQ,aAAK;IACtC,YAAY,OAAe;QACzB,KAAK,CAAC,OAAO,EAAE,GAAG,CAAC,CAAC;IACtB,CAAC;CACF;AAJD,sCAIC"}

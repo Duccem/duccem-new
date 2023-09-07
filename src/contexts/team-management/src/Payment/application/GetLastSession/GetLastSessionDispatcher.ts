@@ -1,4 +1,4 @@
-import { Uuid } from '@ducen/shared/core';
+import { Uuid } from 'core';
 import { PaymentClientRepository } from '../../domain/PaymentRepository';
 
 export class GetLastSessionDispatcher {

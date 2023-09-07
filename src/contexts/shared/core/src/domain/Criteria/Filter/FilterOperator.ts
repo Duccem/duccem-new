@@ -1,4 +1,4 @@
-import { Enum } from 'src/domain/ValueObjects/generics/Enum';
+import { Enum } from '../../ValueObjects/generics/Enum';
 
 export enum Operator {
   EQUAL = '=',

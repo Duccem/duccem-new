@@ -1,10 +1,13 @@
-import { Command, CommandHandler, EventBus, FormatError, NotFoundError } from '@ducen/shared/core';
+import { Command, CommandHandler, EventBus, FormatError, NotFoundError } from 'core';
 import { PaymentEventType } from '../../domain/PaymentEventType';
 import { PaymentRepository } from '../../domain/PaymentRepository';
 import { SessionStatusChangedCommand } from './SessionStatusChangedCommand';
 
 export class SessionStatusChangedHandler implements CommandHandler<SessionStatusChangedCommand> {
-  constructor(private paymentRepository: PaymentRepository, private eventBus: EventBus) {}
+  constructor(
+    private paymentRepository: PaymentRepository,
+    private eventBus: EventBus,
+  ) {}
   subscribedTo(): Command {
     return SessionStatusChangedCommand;
   }

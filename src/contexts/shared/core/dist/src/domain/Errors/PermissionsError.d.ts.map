@@ -1,1 +1,0 @@
-{"version":3,"file":"PermissionsError.d.ts","sourceRoot":"","sources":["../../../../src/domain/Errors/PermissionsError.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,UAAU,CAAC;AAEjC,qBAAa,gBAAiB,SAAQ,KAAK;gBAC7B,OAAO,EAAE,MAAM;CAG5B"}

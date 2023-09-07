@@ -2,5 +2,6 @@
   "singleQuote": true,
   "printWidth": 150,
   "tabWidth": 2,
-  "absoluteImports": true
+  "absoluteImports": true,
+  "semi": true
 }

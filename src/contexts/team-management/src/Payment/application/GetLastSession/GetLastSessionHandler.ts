@@ -1,4 +1,4 @@
-import { NotFoundError, Primitives, Query, QueryHandler } from '@ducen/shared/core';
+import { NotFoundError, Primitives, Query, QueryHandler } from 'core';
 import { Payment } from '../../domain/Payment';
 import { PaymentRepository } from '../../domain/PaymentRepository';
 import { GetLastSessionQuery } from './GetLastSessionQuery';

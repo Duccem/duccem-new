@@ -1,1 +1,0 @@
-{"version":3,"file":"AggregateResponse.d.ts","sourceRoot":"","sources":["../../../../src/domain/Responses/AggregateResponse.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,cAAc,CAAC;AACzC,OAAO,EAAE,QAAQ,EAAE,MAAM,aAAa,CAAC;AAEvC,qBAAa,iBAAkB,SAAQ,QAAQ;IAC7C,QAAQ,CAAC,IAAI,EAAE,SAAS,CAAC;gBACb,OAAO,EAAE,MAAM,EAAE,IAAI,EAAE,SAAS;IAIrC,cAAc;;;;;CAOtB"}
