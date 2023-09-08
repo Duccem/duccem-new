@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Collection, MongoClient } from 'mongodb';
+import { Collection } from 'mongodb';
 import { Aggregate } from '../../../domain/Aggregate';
 import { CacheStore } from '../../../domain/CacheStore';
 import { Criteria } from '../../../domain/Criteria/Criteria';
 import { Entity } from '../../../domain/Entity';
 import { EntityConstructor } from '../../../domain/Types/EntityConstructor';
 import { Primitives } from '../../../domain/Types/Primitives';
+import { MongoConnection } from './MongoConnection';
 import { MongoCriteriaConverter } from './MongoCriteriaConverter';
 export abstract class MongoRepository<T extends Aggregate> {
   protected converter: MongoCriteriaConverter = new MongoCriteriaConverter();
   constructor(
-    protected connection: MongoClient,
+    protected connection: MongoConnection,
     protected cache: CacheStore,
     protected entity: EntityConstructor<T>,
   ) {}
   protected get collection(): Collection {
-    return this.connection.db()!.collection(this.model);
+    return this.connection.getConnection()!.collection(this.model);
   }
   protected get model() {
     return this.entity.name.toLowerCase();
   }
 
   protected subModel<O extends Entity>(other: EntityConstructor<O>) {
-    return this.connection.db()!.collection(other.name.toLowerCase());
+    return this.connection.getConnection()!.collection(other.name.toLowerCase());
   }
 
   protected async searchByCriteria(criteria: Criteria): Promise<T[]> {

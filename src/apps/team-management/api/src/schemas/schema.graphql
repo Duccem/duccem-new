@@ -1,0 +1,31 @@
+type Mutation {
+  guildRegister(guild: GuildRegister, user: MemberRegister): Boolean
+  memberRegister(member: MemberRegister): Boolean
+  choosePlan(guildId: String, plan: String): Boolean
+  createSession(guildId: String, period: String): Boolean
+  recoveryPassword(email: String): Boolean
+}
+
+type Query {
+  ping: String
+  login(identifier: String, password: String): LoginMember
+  guildInformation(guildId: String): Guild
+  getLastSession(guildId: String): Payment
+}
+input QueryFilter {
+  value: String
+  operator: String
+  field: String
+}
+
+input QueryParameters {
+  orderBy: String
+  order: String
+  limit: String
+  offset: String
+  filters: [QueryFilter]
+}
+
+input CountParameters {
+  filters: [QueryFilter]
+}

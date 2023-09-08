@@ -1,4 +1,5 @@
 import { Query, QueryHandler } from 'core';
+import { AuthService } from '../../domain/AuthService';
 import { IncorrectPassword } from '../../domain/IncorrectPassword';
 import { MemberNotExist } from '../../domain/MemberNotExist';
 import { MemberRepository } from '../../domain/MemberRepository';
@@ -7,7 +8,7 @@ import { LoginQuery } from './LoginQuery';
 export class LoginHandler implements QueryHandler<LoginQuery> {
   constructor(
     private userRepository: MemberRepository,
-    private authKey: string,
+    private authService: AuthService,
   ) {}
   subscribedTo(): Query {
     return LoginQuery;
@@ -20,6 +21,6 @@ export class LoginHandler implements QueryHandler<LoginQuery> {
     const authenticated = member.password.compare(query.password);
     if (!authenticated) throw new IncorrectPassword();
 
-    return { token: member.generateToken(this.authKey), member: member.toPrimitives() };
+    return { token: this.authService.generateToken(member), member: member.toPrimitives() };
   }
 }

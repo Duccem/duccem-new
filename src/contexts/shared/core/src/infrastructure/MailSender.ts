@@ -11,6 +11,7 @@ export class MailSender extends EmailSender {
     private readonly fromEmail: string,
     username: string,
     password: string,
+    private readonly templatePath: string,
   ) {
     super();
     this.transporter = createTransport({
@@ -23,7 +24,7 @@ export class MailSender extends EmailSender {
   }
 
   async SendEmail(email: string, title: string, templateName: string, data = {}) {
-    const source = readFileSync(join(process.cwd(), 'resources/templates', `${templateName}.hbs`), 'utf8');
+    const source = readFileSync(join(process.cwd(), this.templatePath, `${templateName}.hbs`), 'utf8');
     const template = compile(source);
     const options = {
       from: `Ducen <${this.fromEmail}>`,

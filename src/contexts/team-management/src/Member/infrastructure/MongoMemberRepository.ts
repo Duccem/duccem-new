@@ -1,10 +1,9 @@
-import { CacheStore, MongoRepository, Nullable, Primitives, Uuid } from 'core';
-import { MongoClient } from 'mongodb';
+import { CacheStore, MongoConnection, MongoRepository, Nullable, Primitives, Uuid } from 'core';
 import { Member } from '../domain/Member';
 import { MemberRepository } from '../domain/MemberRepository';
 
 export class MongoMemberRepository extends MongoRepository<Member> implements MemberRepository {
-  constructor(connection: MongoClient, store: CacheStore) {
+  constructor(connection: MongoConnection, store: CacheStore) {
     super(connection, store, Member);
   }
   async create(id: Uuid, member: Member): Promise<void> {

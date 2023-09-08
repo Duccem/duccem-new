@@ -1,5 +1,4 @@
-import { CacheStore, MongoRepository, Nullable, Primitives } from 'core';
-import { MongoClient } from 'mongodb';
+import { CacheStore, MongoConnection, MongoRepository, Nullable, Primitives } from 'core';
 import { GuildPlan } from '../../Guild/domain/GuildPlan';
 import { Payment } from '../domain/Payment';
 import { PaymentRepository } from '../domain/PaymentRepository';
@@ -7,7 +6,7 @@ import { PaymentStatusEnum } from '../domain/PaymentStatus';
 import { Price } from '../domain/Price';
 
 export class MongoPaymentRepository extends MongoRepository<Payment> implements PaymentRepository {
-  constructor(connection: MongoClient, store: CacheStore) {
+  constructor(connection: MongoConnection, store: CacheStore) {
     super(connection, store, Payment);
   }
 

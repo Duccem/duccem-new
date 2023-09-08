@@ -1,10 +1,49 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { getEnv } from './config/env.config';
+import { busesProvider } from './providers/buses.provider';
+import { commandHandlers } from './providers/commandHandlers.provider';
+import { configurations } from './providers/confIgurations.provider';
+import { connections } from './providers/connections.provider';
+import { controllers } from './providers/controllers.provider';
+import { eventHandlers } from './providers/eventHandlers';
+import { queryHandlers } from './providers/queryHandlers.provider';
+import { repositories } from './providers/repositories.provider';
+import { resolvers } from './providers/resolvers.provider';
+import { services } from './providers/services.providers';
+import { GraphQLErrorHandling } from './utils/ErrorHandlers/GQLErrorHandler';
+import { LoggerMiddleware } from './utils/middlewares/LoggerMiddleware';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: getEnv(),
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      typePaths: ['./src/schemas/*.graphql'],
+      formatError: GraphQLErrorHandling,
+      useGlobalPrefix: true,
+    }),
+  ],
+  controllers: [...controllers],
+  providers: [
+    ...configurations,
+    ...connections,
+    ...services,
+    ...repositories,
+    ...commandHandlers,
+    ...queryHandlers,
+    ...eventHandlers,
+    ...busesProvider,
+    ...resolvers,
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

@@ -1,10 +1,9 @@
-import { CacheStore, MongoRepository, Nullable, Primitives, Uuid } from 'core';
-import { MongoClient } from 'mongodb';
+import { CacheStore, MongoConnection, MongoRepository, Nullable, Primitives, Uuid } from 'core';
 import { Guild } from '../domain/Guild';
 import { GuildRepository } from '../domain/GuildRepository';
 
 export class MongoGuildRepository extends MongoRepository<Guild> implements GuildRepository {
-  constructor(connection: MongoClient, store: CacheStore) {
+  constructor(connection: MongoConnection, store: CacheStore) {
     super(connection, store, Guild);
   }
 
@@ -14,7 +13,8 @@ export class MongoGuildRepository extends MongoRepository<Guild> implements Guil
   }
 
   async findGuildById(guildId: Uuid): Promise<Nullable<Guild>> {
-    const guild = await this.collection.findOne<Nullable<Primitives<Guild>>>({ id: guildId.value });
+    const transaction = this.collection.findOne<Nullable<Primitives<Guild>>>({ id: guildId.value });
+    const guild = await this.cache.getOrSet<Nullable<Primitives<Guild>>>(this.model + '.' + guildId.value, transaction);
     return guild ? new Guild(guild) : null;
   }
 

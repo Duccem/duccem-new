@@ -1,4 +1,4 @@
-export abstract class Error {
+export class Error {
   protected readonly message: string;
   protected readonly code: number;
   protected readonly timestamp: string;
@@ -13,5 +13,9 @@ export abstract class Error {
 
   public getMessage(): string {
     return this.message;
+  }
+
+  public getTimestamp(): string {
+    return this.timestamp;
   }
 }

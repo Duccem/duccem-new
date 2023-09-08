@@ -3,7 +3,7 @@ import { unlinkSync } from 'fs';
 import { Uploader, UploaderResponse } from '../domain/Uploader';
 
 export class CloudinaryUploader implements Uploader {
-  constructor(cloudName: string, apiKey: string, apiSecret: string) {
+  constructor({ cloudName, apiKey, apiSecret }: { cloudName: string; apiKey: string; apiSecret: string }) {
     v2.config({
       cloud_name: cloudName,
       api_key: apiKey,

@@ -1,15 +1,15 @@
-import { MongoClient } from 'mongodb';
 import { DomainEvent } from '../../domain/DomainEvent';
+import { MongoConnection } from '../Persistence/Mongo/MongoConnection';
 import { DomainEventDeserializer } from './DomainEventDeserializer';
 import { DomainEventSerializer } from './DomainEventSerializer';
 
 export class DomainEventFailOverPublisher {
   private deserializer?: DomainEventDeserializer;
   static collectionName = 'event';
-  constructor(private connection: MongoClient) {}
+  constructor(private connection: MongoConnection) {}
 
   private get collection() {
-    return this.connection.db()?.collection(DomainEventFailOverPublisher.collectionName);
+    return this.connection.getConnection()?.collection(DomainEventFailOverPublisher.collectionName);
   }
 
   setDeserializer(deserializer: DomainEventDeserializer) {

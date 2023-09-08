@@ -46,6 +46,7 @@ export * from './src/Member/domain/PasswordFormatError';
 export * from './src/Member/infrastructure/Apollo/login';
 export * from './src/Member/infrastructure/Apollo/register';
 export * from './src/Member/infrastructure/ApolloMemberRepository';
+export * from './src/Member/infrastructure/JWTAuthService';
 export * from './src/Member/infrastructure/MongoMemberRepository';
 
 export * from './src/Payment/application/CreateSession/CreateSessionCommand';

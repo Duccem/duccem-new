@@ -1,0 +1,47 @@
+
+type GuildConfiguration {
+  lang: String
+  timezone: String
+  category: String
+  plan: String
+  nextPayment: String
+  lastPayment: String
+  planStatus: String
+}
+
+type Guild {
+  id: String
+  createdAt: String
+  updatedAt: String
+  name: String
+  email: String
+  description: String
+  country: String
+  foundationDate: String
+  objective: String
+  image: String
+  configuration: GuildConfiguration
+}
+
+input GuildConfigurationRegister {
+  lang: String
+  timezone: String
+  category: String
+  plan: String
+  nextPayment: String
+  lastPayment: String
+  planStatus: String
+}
+
+input GuildRegister {
+  id: String
+  name: String
+  email: String
+  description: String
+  country: String
+  foundationDate: String
+  image: String
+  objective: String
+  createdAt: String
+  configuration: GuildConfigurationRegister
+}

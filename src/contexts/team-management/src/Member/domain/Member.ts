@@ -1,5 +1,5 @@
 import { Aggregate, Email, Image, Primitives, StringValueObject, Uuid } from 'core';
-import jwt from 'jsonwebtoken';
+
 import { MemberAddress } from './MemberAddress';
 import { MemberBirthDate } from './MemberBirthDate';
 import { MemberConfiguration } from './MemberConfiguration';
@@ -63,7 +63,7 @@ export class Member extends Aggregate {
     return member;
   }
 
-  public generateToken(key: string): string {
+  public generateToken(): any {
     const payload = {
       memberId: this.id.value,
       guildId: this.guildId.value,
@@ -71,12 +71,6 @@ export class Member extends Aggregate {
       nickname: this.nickname.value,
       configuration: this.configuration.toPrimitives(),
     };
-    const token = jwt.sign(payload, key, { expiresIn: 60 * 60 * 24 });
-    return token;
-  }
-
-  public static Authenticate(token: string, key: string): any {
-    const payload = jwt.verify(token, key);
     return payload;
   }
 
