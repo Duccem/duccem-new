@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build:team:back": "npm run build -w core && npm run build -w team-management && npm run build -w api",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
