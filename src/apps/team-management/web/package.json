@@ -3,15 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4200",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4200",
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/nunito": "^5.0.8",
+    "@fortawesome/fontawesome-free": "^6.4.2",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intl": "^6.4.5",
+    "styled-components": "^6.0.7",
     "team-management": "^0.0.0",
     "ui": "*"
   },
@@ -20,7 +25,10 @@
     "@types/node": "^17.0.12",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
+    "autoprefixer": "^10.4.15",
     "eslint-config-duccem": "*",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3",
     "tsconfig": "*",
     "typescript": "^4.5.3"
   }

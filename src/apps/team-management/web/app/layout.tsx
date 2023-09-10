@@ -1,11 +1,30 @@
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element {
+import '@fontsource/nunito';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { Metadata } from 'next';
+import { IndexProtect } from './_shared/components/IndexProtect';
+import { RouteGuard } from './_shared/components/RouteGuard';
+import { DucenProvider } from './_shared/store/DucenProvider';
+import './global.css';
+config.autoAddCss = false;
+
+export const metadata: Metadata = {
+  icons: {
+    icon: '/images/seguridad.png',
+  },
+};
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body suppressHydrationWarning={true}>
+        <IndexProtect>
+          <RouteGuard>
+            <DucenProvider>
+              {children}
+            </DucenProvider>
+          </RouteGuard>
+        </IndexProtect>
+      </body>
     </html>
   );
 }

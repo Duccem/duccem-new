@@ -1,4 +1,4 @@
-import { v2 } from 'cloudinary';
+import { v2 } from 'cloudinary/lib/cloudinary';
 import { unlinkSync } from 'fs';
 import { Uploader, UploaderResponse } from '../domain/Uploader';
 

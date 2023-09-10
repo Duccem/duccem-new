@@ -2,7 +2,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "module": "CommonJS",
+    "module": "commonjs",
+    "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "outDir": "./dist",
     "lib": [
@@ -10,8 +11,15 @@
     ],
     "declaration": true,
     "declarationMap": true,
-    "target": "ES2021",
+    "target": "ES2015",
     "sourceMap": true,
     "skipLibCheck": true,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    
   },
 }
