@@ -9,6 +9,7 @@ export class Enum<T> extends ValueObject<T> {
     super(value);
   }
   public validation(value: T): void {
+    console.log(this.validValues);
     if (!this.validValues.includes(value)) {
       throw new FormatError(`<${this.constructor.name}> does not allow the value <${value}>`);
     }

@@ -1,8 +1,8 @@
 //import { ExternalSignQuery } from '@ducen/team-management';
 import { Controller, Inject, UseFilters, UseInterceptors } from '@nestjs/common';
 import { QueryBus } from 'core';
-import { ResponseModeler } from 'src/utils/Responses/ResponseInterceptor';
 import { RESTCatchErrors } from '../utils/ErrorHandlers/RESTErrorHandler';
+import { ResponseModeler } from '../utils/Responses/ResponseInterceptor';
 
 @Controller('oauth')
 @UseFilters(RESTCatchErrors)
