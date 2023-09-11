@@ -1,81 +1,94 @@
-# Turborepo starter
+[![Frontend CI](https://github.com/Duccem/ducen/actions/workflows/frontend.yml/badge.svg)](https://github.com/Duccem/ducen/actions/workflows/frontend.yml)
+[![Frontend CI](https://github.com/Duccem/ducen/actions/workflows/backend.yml/badge.svg)](https://github.com/Duccem/ducen/actions/workflows/backend.yml)
+# Duccem Platform
 
-This is an official starter Turborepo.
+Version: 1.1.0
 
-## Using this example
+Author: José Véliz [(Duccem)](https://github.com/Duccem)
 
-Run the following command:
+- [Duccem Platform](#duccem-platform)
+  - [About](#about)
+  - [Installation](#installation)
+  - [Commands](#commands)
+    - [Example](#example)
+  - [Actions](#actions)
+  - [Environments](#environments)
+  - [Architecture](#architecture)
+  - [Other links](#other-links)
+  - [Contributing](#contributing)
+  - [License](#license)
 
-```sh
-npx create-turbo@latest
+## About
+
+This mono repository contains all of source code related to the project "Ducen", a project oriented to the team management and the career path,
+each module of the repository represents a part of the principal team and the objective of that team.
+
+## Installation
+
+Ducen is a nodejs project, so you can install it with
+
+```bash
+$ npm install --save
 ```
 
-## What's inside?
+## Commands
 
-This Turborepo includes the following packages/apps:
+Some useful commands are the main run commands to stand up the services on local machine and docker containers,
+the commands are compounds of elements that determinate what are you making  ```$ npm run ${action}:${context}:${app}:${env}```
 
-### Apps and Packages
+### Example
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+```$ npm run start:team:back:docker```
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Actions
 
-### Utilities
+- start
+- build
+- test
+- cov
+- e2e
 
-This Turborepo has some additional tools already setup for you:
+## Environments
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- Local
+- Docker
+- Dev
+- Prod
 
-### Build
+## Architecture
 
-To build all apps and packages, run the following command:
+Ducen backend is a monorepo that contain various libs with code useful to run apps as rest api and sockets servers,
+this architectures allow to some apps share code important to the domain of Ducen, the architecture have the follow structure.
 
-```
-cd my-turborepo
-pnpm build
-```
+The structure folder follow the DDD and Hexagonal architecture philosophy (Domain, Services/Application, Infrastructure/Adaptors).
 
-### Develop
+- [apps/]() Apps of the different teams
+  - [team-management/]() core team
+    - [frontend/]() NextJS app
+    - [backend/]() NestJS app
+    - [mobile/]() Expo app
+- [contexts/]() 
+  - [team-management/]() The team management base code
+  - [shared/]() Shared code between teams
+    - [core/]() Core entities and modules code
+    - [ui/]() UI library of all products of the management
+  - [packages/]
+    - [eslint-config-duccem/]
+    - [tsconfig]
 
-To develop all apps and packages, run the following command:
+## Other links
 
-```
-cd my-turborepo
-pnpm dev
-```
+- [Changelog](https://github.com/Duccem/ducen-backend/blob/main/CHANGELOG.md)
+- [Main API](/main-api)
 
-### Remote Caching
+## Contributing
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+- [José Véliz (Duccem)](https://github.com/Duccem)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+<a href="https://github.com/duccem/ducen-backend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=duccem/ducen" />
+</a>
 
-```
-cd my-turborepo
-npx turbo login
-```
+## License
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+MIT
