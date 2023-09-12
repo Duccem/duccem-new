@@ -7,6 +7,7 @@
 
 - Migrate from Nx to NPM Workspaces
 - Implement authentication workflows
+- Implement Change password flow [3ec97c4]()
 
 ## [0.0.10] Deployment configurations 2023-05-09
 

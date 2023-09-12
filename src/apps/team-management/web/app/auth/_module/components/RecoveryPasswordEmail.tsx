@@ -23,7 +23,7 @@ export function RecoveryPasswordEmail() {
   return (
     <>
       <Form onSubmit={submitEmail} width={'75%'}>
-        <TextInput placeholder="Guild identification" {...register('email')} />
+        <TextInput placeholder="Your email" {...register('email')} />
         <Button type="submit">Identify</Button>
       </Form>
     </>

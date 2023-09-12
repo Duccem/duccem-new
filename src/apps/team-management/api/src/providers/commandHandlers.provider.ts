@@ -37,8 +37,8 @@ export const commandHandlers: Provider[] = [
   },
   {
     provide: RecoveryPasswordHandler,
-    inject: ['MEMBER_REPOSITORY', 'EMAIL_SERVICE'],
-    useFactory: (memberRepository: any, emailSender: any) => new RecoveryPasswordHandler(memberRepository, emailSender),
+    inject: ['MEMBER_REPOSITORY', 'EMAIL_SERVICE', 'SERVER_CONFIGURATION'],
+    useFactory: (memberRepository: any, emailSender: any, conf: any) => new RecoveryPasswordHandler(memberRepository, emailSender, conf.frontendUrl),
   },
 ];
 

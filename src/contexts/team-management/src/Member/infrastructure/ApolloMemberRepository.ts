@@ -37,4 +37,15 @@ export class ApolloMemberRepository extends ApolloRepository<Member> implements 
       variables: { email },
     });
   }
+
+  async changePassword(memberId: string, newPassword: string, oldPassword: string): Promise<void> {
+    await this.client.mutate({
+      mutation: gql`
+        mutation changePassword($memberId: String, $newPassword: String, $oldPassword: String) {
+          changePassword(memberId: $memberId, newPassword: $newPassword, oldPassword: $oldPassword)
+        }
+      `,
+      variables: { memberId, newPassword, oldPassword },
+    });
+  }
 }

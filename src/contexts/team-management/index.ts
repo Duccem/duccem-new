@@ -21,6 +21,9 @@ export * from './src/Guild/infrastructure/apollo/choosePlan';
 export * from './src/Guild/infrastructure/apollo/findById';
 export * from './src/Guild/infrastructure/apollo/registerGuild';
 
+export * from './src/Member/application/ChangePassword/ChangePasswordCommand';
+export * from './src/Member/application/ChangePassword/ChangePasswordDispatcher';
+export * from './src/Member/application/ChangePassword/ChangePasswordHandler';
 export * from './src/Member/application/Login/LoginDispatcher';
 export * from './src/Member/application/Login/LoginHandler';
 export * from './src/Member/application/Login/LoginQuery';

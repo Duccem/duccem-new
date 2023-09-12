@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from 'core';
-import { LoginQuery, MemberRegisterCommand, RecoveryPasswordCommand } from 'team-management';
+import { ChangePasswordCommand, LoginQuery, MemberRegisterCommand, RecoveryPasswordCommand } from 'team-management';
 
 @Resolver('Member')
 export class MemberResolver {
@@ -26,6 +26,17 @@ export class MemberResolver {
   @Mutation('recoveryPassword')
   async recoveryPassword(@Args('email') email: string) {
     const command = new RecoveryPasswordCommand(email);
+    await this.commandBus.dispatch(command);
+    return null;
+  }
+
+  @Mutation('changePassword')
+  async changePassword(
+    @Args('memberId') memberId: string,
+    @Args('newPassword') newPassword: string,
+    @Args('oldPassword') oldPassword: string,
+  ) {
+    const command = new ChangePasswordCommand(memberId, newPassword, oldPassword);
     await this.commandBus.dispatch(command);
     return null;
   }

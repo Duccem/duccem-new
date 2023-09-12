@@ -1,85 +1,78 @@
 import { Provider } from '@nestjs/common';
-import * as serviceAccount from '../environments/ducen-google-services.json';
+import { ConfigService } from '@nestjs/config';
+import authConfig from '../config/auth.config';
+import cacheConfig from '../config/cache.config';
+import dbConfig from '../config/db.config';
+import emailConfig from '../config/email.config';
+import imageConfig from '../config/image.config';
+import notificationConfig from '../config/notification.config';
+import oauthConfig from '../config/oauth.config';
+import paymentConfig from '../config/payment.config';
+import queueConfig from '../config/queue.config';
+import serverConfig from '../config/server.config';
+
+export const confFiles = [
+  authConfig,
+  cacheConfig,
+  dbConfig,
+  emailConfig,
+  imageConfig,
+  notificationConfig,
+  oauthConfig,
+  paymentConfig,
+  queueConfig,
+  serverConfig,
+];
 
 export const configurations: Provider[] = [
   {
     provide: 'SERVER_CONFIGURATION',
-    useValue: {
-      port: process.env.PORT || 3000,
-      host: process.env.HOST || ' http://localhost',
-      globalPrefix: process.env.GLOBAL_PREFIX || 'api',
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('server') }),
   },
   {
     provide: 'DATABASE_CONFIGURATION',
-    useValue: {
-      uri: process.env.DATABASE_URI || 'mongodb://127.0.0.1:27017',
-      name: process.env.DATABASE_NAME || 'ducen2',
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('database') }),
   },
   {
     provide: 'QUEUE_CONFIGURATION',
-    useValue: {
-      hostname: process.env.MESSAGE_Q_HOST,
-      protocol: process.env.MESSAGE_Q_PROTOCOL,
-      port: process.env.MESSAGE_Q_PORT,
-      username: process.env.MESSAGE_Q_USER,
-      password: process.env.MESSAGE_Q_PASSWORD,
-      vhost: process.env.MESSAGE_Q_VHOST,
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('queue') }),
   },
   {
     provide: 'CACHE_CONFIGURATION',
-    useValue: {
-      url: process.env.CACHE_URL,
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('cache') }),
   },
   {
     provide: 'AUTH_CONFIGURATION',
-    useValue: {
-      authKey: process.env.AUTH_KEY,
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('auth') }),
   },
   {
     provide: 'OAUTH2_CONFIGURATION',
-    useValue: {
-      facebookClientID: process.env.FACEBOOK_CLIENT_ID || '',
-      facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
-      googleClientID: process.env.GOOGLE_CLIENT_ID || '',
-      googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-      twitterClientID: process.env.TWITTER_KEY || '',
-      twitterClientSecret: process.env.TWITTER_SECRET || '',
-      linkedinClientID: process.env.LINKEDIN_CLIENT_ID || '',
-      linkedinClientSecret: process.env.LINKEDIN_CLIENT_SECRET || '',
-      githubClientID: process.env.GITHUB_CLIENT_ID || '',
-      githubClientSecret: process.env.GITHUB_CLIENT_SECRET || '',
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('oauth') }),
   },
   {
     provide: 'IMAGE_CONFIGURATION',
-    useValue: {
-      cloudName: process.env.CLOUDINARY_NAME,
-      apiKey: process.env.CLOUDINARY_KEY,
-      apiSecret: process.env.CLOUDINARY_SECRET,
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('image') }),
   },
   {
     provide: 'EMAIL_CONFIGURATION',
-    useValue: {
-      username: process.env.EMAIL_USER,
-      password: process.env.EMAIL_PASS,
-      fromEmail: process.env.EMAIL_FROM,
-      templatePath: process.env.EMAIL_TEMPLATE_PATH,
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('email') }),
   },
   {
     provide: 'PAYMENT_CONFIGURATION',
-    useValue: {
-      secretKey: process.env.STRIPE_SECRET_KEY,
-    },
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('payment') }),
   },
   {
     provide: 'NOTIFICATION_CONFIGURATION',
-    useValue: serviceAccount,
+    inject: [ConfigService],
+    useFactory: (configService: ConfigService) => ({ ...configService.get('notification') }),
   },
 ];

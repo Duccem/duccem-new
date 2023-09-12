@@ -3,20 +3,20 @@ import { PropsWithChildren } from "react";
 import { IntlProvider } from "react-intl";
 import { ThemeProvider } from "styled-components";
 import { theme } from "ui";
-import * as repositories from '../../../config/Repositories';
+import { getRepositories } from '../../../config/Repositories';
 import messages_en from '../../../locales/en.json';
 import messages_es from '../../../locales/es.json';
 import { ErrorHandler } from "../components/ErrorHandler";
 import { Loader } from "../components/Loader";
 import { DucenContextProvider } from "./DucenContext";
-export function DucenProvider({ children }: PropsWithChildren) {
+export function DucenProvider({ children, configurations }: PropsWithChildren<{ configurations: any }>) {
   const messages = {
     es: messages_es,
     en: messages_en
   }
   return (
     <>
-      <DucenContextProvider {...repositories}>
+      <DucenContextProvider {...getRepositories(configurations)} configurations={configurations}>
         <ThemeProvider theme={theme} >
             <IntlProvider locale='es' messages={messages['es']}>
               <Loader/>

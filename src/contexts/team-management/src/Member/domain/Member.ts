@@ -1,5 +1,6 @@
 import { Aggregate, Email, Image, Primitives, StringValueObject, Uuid } from 'core';
 
+import { IncorrectPassword } from './IncorrectPassword';
 import { MemberAddress } from './MemberAddress';
 import { MemberBirthDate } from './MemberBirthDate';
 import { MemberConfiguration } from './MemberConfiguration';
@@ -26,25 +27,20 @@ export class Member extends Aggregate {
 
   constructor(data: Primitives<Member>) {
     super(data);
-    try {
-      this.guildId = data.guildId ? new Uuid(data.guildId) : null;
-      this.roleId = data.roleId ? new Uuid(data.roleId) : null;
-      this.nickname = new StringValueObject(data.nickname);
-      this.password = data.password ? new MemberPassword(data.password) : null;
-      this.birthDate = new MemberBirthDate(data.birthDate);
-      this.email = new Email(data.email);
-      this.address = new MemberAddress(data.address);
-      this.photo = new Image(data.photo);
-      this.firstName = new StringValueObject(data.firstName);
-      this.lastName = new StringValueObject(data.lastName);
-      this.biography = new StringValueObject(data.biography);
-      this.gender = new MemberGender(data.gender);
-      this.phoneNumber = new StringValueObject(data.phoneNumber);
-      this.configuration = new MemberConfiguration(data.configuration);
-    } catch (error) {
-      console.log(data);
-      console.log(error);
-    }
+    this.guildId = data.guildId ? new Uuid(data.guildId) : null;
+    this.roleId = data.roleId ? new Uuid(data.roleId) : null;
+    this.nickname = new StringValueObject(data.nickname);
+    this.password = data.password ? new MemberPassword(data.password) : null;
+    this.birthDate = new MemberBirthDate(data.birthDate);
+    this.email = new Email(data.email);
+    this.address = new MemberAddress(data.address);
+    this.photo = new Image(data.photo);
+    this.firstName = new StringValueObject(data.firstName);
+    this.lastName = new StringValueObject(data.lastName);
+    this.biography = new StringValueObject(data.biography);
+    this.gender = new MemberGender(data.gender);
+    this.phoneNumber = new StringValueObject(data.phoneNumber);
+    this.configuration = new MemberConfiguration(data.configuration);
   }
 
   static Create(data: Primitives<Member>, guildId?: Uuid): Member {
@@ -72,6 +68,12 @@ export class Member extends Aggregate {
       configuration: this.configuration.toPrimitives(),
     };
     return payload;
+  }
+
+  public changePassword(newPassword: string, oldPassword: string): void {
+    if (!this.password.compare(oldPassword)) throw new IncorrectPassword();
+    this.password = new MemberPassword(newPassword);
+    this.password.encrypt();
   }
 
   public toPrimitives(): Primitives<Member> {

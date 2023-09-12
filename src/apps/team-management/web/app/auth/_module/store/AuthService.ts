@@ -1,4 +1,5 @@
 import {
+  ChangePasswordDispatcher,
   ChoosePlanDispatcher,
   CreateSessionDispatcher,
   GetGuildInformationDispatcher,
@@ -70,6 +71,11 @@ export const useAuthService = () => {
     await dispatcher.dispatch(email);
   };
 
+  const changePassword = async (memberId: string, newPassword: string, oldPassword: string) => {
+    const dispatcher = new ChangePasswordDispatcher(memberRepository);
+    await dispatcher.dispatch(memberId, newPassword, oldPassword);
+  };
+
   return {
     registerGuild,
     identifyGuild,
@@ -79,6 +85,7 @@ export const useAuthService = () => {
     getLastPaymentSession,
     login,
     recoveryPassword,
+    changePassword,
   };
 };
 

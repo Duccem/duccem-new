@@ -1,11 +1,13 @@
 'use client'
 import { PropsWithChildren, createContext, useContext } from 'react';
 import { GuildClientRepository, MemberClientRepository, PaymentClientRepository } from 'team-management';
+import { Configurations } from '../../../config/Configurations';
 import { AuthContextProvider } from '../../auth/_module/store/AuthContext';
 import { SharedContextProvider } from './SharedContext';
 import { combineComponents } from './combinedContexts';
 
 export interface DucenContextState {
+  configurations: Configurations,
   guildRepository: GuildClientRepository,
   memberRepository: MemberClientRepository,
   paymentRepository: PaymentClientRepository,

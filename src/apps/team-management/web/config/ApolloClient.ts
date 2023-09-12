@@ -1,5 +1,4 @@
 import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
-import configurations from './Configurations';
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: 'no-cache',
@@ -10,10 +9,11 @@ const defaultOptions: DefaultOptions = {
     errorPolicy: 'all',
   },
 };
-const client = new ApolloClient({
-  uri: configurations.backendUrl,
-  cache: new InMemoryCache(),
-  defaultOptions,
-});
 
-export default client;
+export const getClient = (baseUrl: string) => {
+  return new ApolloClient({
+    uri: `${baseUrl}/api/graphql`,
+    cache: new InMemoryCache(),
+    defaultOptions,
+  });
+};

@@ -1,8 +1,12 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import banner from '../../public/images/Group 8.png';
 import { BackButton } from './_module/components/BackButton';
 import Loading from './loading';
+export const metadata: Metadata = {
+  title: 'Start your adventure',
+}
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>

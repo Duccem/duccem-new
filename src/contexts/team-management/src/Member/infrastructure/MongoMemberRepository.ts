@@ -21,4 +21,9 @@ export class MongoMemberRepository extends MongoRepository<Member> implements Me
     const member = await this.collection.findOne<Nullable<Primitives<Member>>>({ email });
     return member ? new Member(member) : null;
   }
+
+  async getById(id: Uuid): Promise<Member> {
+    const member = await this.collection.findOne<Nullable<Primitives<Member>>>({ id: id.value });
+    return member ? new Member(member) : null;
+  }
 }

@@ -7,11 +7,17 @@ export class Enum<T> extends ValueObject<T> {
     public readonly validValues: T[],
   ) {
     super(value);
+    this.ensureValidValue(value);
   }
-  public validation(value: T): void {
-    console.log(this.validValues);
+  protected validation(value: T): void {
+    if (value === null || value === undefined) {
+      throw new FormatError('Value string must be defined');
+    }
+  }
+
+  protected ensureValidValue(value: T): void {
     if (!this.validValues.includes(value)) {
-      throw new FormatError(`<${this.constructor.name}> does not allow the value <${value}>`);
+      throw new FormatError(`Invalid value for enum ${this.constructor.name}: ${value}`);
     }
   }
 

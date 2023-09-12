@@ -2,10 +2,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+
 import { getEnv } from './config/env.config';
+
 import { busesProvider } from './providers/buses.provider';
 import { commandHandlers } from './providers/commandHandlers.provider';
-import { configurations } from './providers/confIgurations.provider';
+import { confFiles, configurations } from './providers/confIgurations.provider';
 import { connections } from './providers/connections.provider';
 import { controllers } from './providers/controllers.provider';
 import { eventHandlers } from './providers/eventHandlers';
@@ -21,6 +23,7 @@ import { LoggerMiddleware } from './utils/middlewares/LoggerMiddleware';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: getEnv(),
+      load: [...confFiles],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,

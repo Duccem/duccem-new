@@ -4,6 +4,7 @@ type Mutation {
   choosePlan(guildId: String, plan: String): Boolean
   createSession(guildId: String, period: String): Boolean
   recoveryPassword(email: String): Boolean
+  changePassword(memberId: String, newPassword: String, oldPassword: String): Boolean
 }
 
 type Query {

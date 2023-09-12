@@ -7,6 +7,7 @@ export class RecoveryPasswordHandler implements CommandHandler<RecoveryPasswordC
   constructor(
     private readonly memberRepository: MemberRepository,
     private mailSender: EmailSender,
+    private baseUrl: string,
   ) {}
   subscribedTo(): Command {
     return RecoveryPasswordCommand;
@@ -18,7 +19,7 @@ export class RecoveryPasswordHandler implements CommandHandler<RecoveryPasswordC
 
     await this.mailSender.SendEmail(email, 'Ducen - Recovery Password', 'recovery-password', {
       name: `${member.firstName.value} ${member.lastName.value}`,
-      link: `http://localhost:4200/recovery-password?id=${member.id.value}`,
+      link: `${this.baseUrl}/auth/new-password?id=${member.id.value}`,
     });
   }
 }

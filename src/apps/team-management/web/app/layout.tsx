@@ -17,9 +17,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
+        {  }
         <IndexProtect>
           <RouteGuard>
-            <DucenProvider>
+            <DucenProvider configurations={{
+              baseUrl: process.env.BACKEND_URL,
+              countriesUrl: process.env.COUNTRIES_URL,
+              citiesUrl: process.env.CITIES_URL,
+            }}>
               {children}
             </DucenProvider>
           </RouteGuard>
