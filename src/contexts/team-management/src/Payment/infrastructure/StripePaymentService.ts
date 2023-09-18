@@ -1,7 +1,7 @@
 import { Stripe } from 'stripe';
+import { GuildPlan } from '../../Guild/domain/GuildPlan';
 import { PaymentEventType } from '../domain/PaymentEventType';
 import { PaymentService } from '../domain/PaymentService';
-import { Price } from '../domain/Price';
 
 export class StripePaymentService implements PaymentService {
   private client: Stripe;
@@ -12,13 +12,17 @@ export class StripePaymentService implements PaymentService {
   constructor(secretKey: string) {
     this.client = new Stripe(secretKey, { apiVersion: '2023-08-16' });
   }
-  async createSession(price: Price): Promise<{ sessionId: string; url: string }> {
+  async createSession(plan: GuildPlan, period: string): Promise<{ sessionId: string; url: string }> {
+    const prices = await this.client.prices.search({
+      query: `${plan.value} - ${period}`,
+    });
+
     const session = await this.client.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],
       line_items: [
         {
-          price: price.priceId.value,
+          price: prices.data[0].id,
           quantity: 1,
         },
       ],

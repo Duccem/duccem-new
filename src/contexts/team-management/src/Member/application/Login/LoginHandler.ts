@@ -1,6 +1,5 @@
 import { Query, QueryHandler } from 'core';
 import { AuthService } from '../../domain/AuthService';
-import { IncorrectPassword } from '../../domain/IncorrectPassword';
 import { MemberNotExist } from '../../domain/MemberNotExist';
 import { MemberRepository } from '../../domain/MemberRepository';
 import { LoginQuery } from './LoginQuery';
@@ -18,9 +17,11 @@ export class LoginHandler implements QueryHandler<LoginQuery> {
     const member = await this.userRepository.identify(query.identifier);
     if (!member) throw new MemberNotExist();
 
-    const authenticated = member.password.compare(query.password);
-    if (!authenticated) throw new IncorrectPassword();
+    member.validatePassword(query.password);
 
-    return { token: this.authService.generateToken(member), member: member.toPrimitives() };
+    return {
+      token: this.authService.generateToken(member),
+      member: member.toPrimitives(),
+    };
   }
 }

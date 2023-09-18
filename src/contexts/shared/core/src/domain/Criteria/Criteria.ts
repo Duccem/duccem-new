@@ -6,10 +6,10 @@ export type FilterType = { value: string; operator: string; field: string };
 
 export class Criteria {
   readonly filters: Filters;
-  readonly order: Order;
-  readonly paginator: Paginator;
+  readonly order?: Order;
+  readonly paginator?: Paginator;
 
-  constructor(filters: Filters, order: Order, paginator: Paginator) {
+  constructor(filters: Filters, order?: Order, paginator?: Paginator) {
     this.filters = filters;
     this.order = order;
     this.paginator = paginator;

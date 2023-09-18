@@ -10,7 +10,7 @@ import { MemberPassword } from './MemberPassword';
 
 export class Member extends Aggregate {
   guildId: Uuid;
-  roleId: Uuid;
+  roleId: StringValueObject;
 
   nickname: StringValueObject;
   password: MemberPassword;
@@ -28,7 +28,7 @@ export class Member extends Aggregate {
   constructor(data: Primitives<Member>) {
     super(data);
     this.guildId = data.guildId ? new Uuid(data.guildId) : null;
-    this.roleId = data.roleId ? new Uuid(data.roleId) : null;
+    this.roleId = data.roleId ? new StringValueObject(data.roleId) : null;
     this.nickname = new StringValueObject(data.nickname);
     this.password = data.password ? new MemberPassword(data.password) : null;
     this.birthDate = new MemberBirthDate(data.birthDate);
@@ -43,19 +43,16 @@ export class Member extends Aggregate {
     this.configuration = new MemberConfiguration(data.configuration);
   }
 
-  static Create(data: Primitives<Member>, guildId?: Uuid): Member {
+  static Create(data: Primitives<Member>): Member {
     const member = new Member(data);
     member.password.encrypt();
-    member.guildId = member.guildId ? member.guildId : guildId ? guildId : null;
-    if (!data.id) {
-      const createdEvent = new MemberCreatedDomainEvent({
-        aggregateId: member.id.value,
-        params: {
-          memberId: member.id.value,
-        },
-      });
-      member.record(createdEvent);
-    }
+    const createdEvent = new MemberCreatedDomainEvent({
+      aggregateId: member.id.value,
+      params: {
+        memberId: member.id.value,
+      },
+    });
+    member.record(createdEvent);
     return member;
   }
 
@@ -70,6 +67,9 @@ export class Member extends Aggregate {
     return payload;
   }
 
+  public validatePassword(password: string): void {
+    if (!this.password.compare(password)) throw new IncorrectPassword();
+  }
   public changePassword(newPassword: string, oldPassword: string): void {
     if (!this.password.compare(oldPassword)) throw new IncorrectPassword();
     this.password = new MemberPassword(newPassword);
@@ -94,7 +94,7 @@ export class Member extends Aggregate {
       phoneNumber: this.phoneNumber.value,
       configuration: this.configuration.toPrimitives(),
       createdAt: this.createdAt.value,
-      updatedAt: this.updatedAt.value,
+      updatedAt: this.updatedAt ? this.updatedAt.value : null,
     };
   }
 }

@@ -19,6 +19,6 @@ export class MongoGuildRepository extends MongoRepository<Guild> implements Guil
   }
 
   async registerGuild(guild: Guild): Promise<void> {
-    await this.collection.updateOne({ id: guild.id.value }, { $set: guild.toPrimitives() }, { upsert: true });
+    await this.persist(guild.id.value, guild);
   }
 }

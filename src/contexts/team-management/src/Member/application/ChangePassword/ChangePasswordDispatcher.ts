@@ -1,4 +1,4 @@
-import { MemberClientRepository } from 'src/Member/domain/MemberRepository';
+import { MemberClientRepository } from '../../domain/MemberRepository';
 
 export class ChangePasswordDispatcher {
   constructor(private repository: MemberClientRepository) {}

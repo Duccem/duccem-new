@@ -9,7 +9,9 @@ export abstract class Aggregate extends Entity {
   }
 
   public pullDomainEvents(): Array<DomainEvent> {
-    return this.domainEvents;
+    const domainEvents = this.domainEvents.slice();
+    this.domainEvents = [];
+    return domainEvents;
   }
 
   public record(event: DomainEvent): void {

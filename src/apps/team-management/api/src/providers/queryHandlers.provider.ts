@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common';
-import { GetGuildInformationHandler, GetLastSessionHandler, LoginHandler } from 'team-management';
+import { GetGuildInformationHandler, GetLastSessionHandler, GetMemberMasterHandler, LoginHandler } from 'team-management';
 
 export const queryHandlers: Provider[] = [
   {
@@ -17,6 +17,11 @@ export const queryHandlers: Provider[] = [
     inject: ['MEMBER_REPOSITORY', 'AUTH_SERVICE'],
     useFactory: (repository: any, authService: any) => new LoginHandler(repository, authService),
   },
+  {
+    provide: GetMemberMasterHandler,
+    inject: ['MEMBER_REPOSITORY'],
+    useFactory: (repository: any) => new GetMemberMasterHandler(repository),
+  },
 ];
 
-export const queryHandlersRegister = [GetGuildInformationHandler, GetLastSessionHandler, LoginHandler];
+export const queryHandlersRegister = [GetGuildInformationHandler, GetLastSessionHandler, LoginHandler, GetMemberMasterHandler];

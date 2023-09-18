@@ -1,4 +1,4 @@
-import { Primitives, Query, QueryHandler, Uuid } from 'core';
+import { Query, QueryHandler, Uuid } from 'core';
 import { Guild } from '../../domain/Guild';
 import { GuildNotFoundError } from '../../domain/GuildNotFoundError';
 import { GuildRepository } from '../../domain/GuildRepository';
@@ -11,9 +11,9 @@ export class GetGuildInformationHandler implements QueryHandler<GetGuildInformat
     return GetGuildInformationQuery;
   }
 
-  async handle({ guildId }: GetGuildInformationQuery): Promise<Primitives<Guild>> {
+  async handle({ guildId }: GetGuildInformationQuery): Promise<Guild> {
     const guild = await this.guildRepository.findGuildById(new Uuid(guildId));
     if (!guild) throw new GuildNotFoundError(guildId);
-    return guild.toPrimitives();
+    return guild;
   }
 }

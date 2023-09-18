@@ -1,5 +1,4 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
-import { Response } from 'core';
 import { Observable, map } from 'rxjs';
 
 export class ResponseModeler implements NestInterceptor {
@@ -7,9 +6,8 @@ export class ResponseModeler implements NestInterceptor {
     const ctx = context.switchToHttp();
     const res = ctx.getResponse<any>();
     return next.handle().pipe(
-      map((data: Response) => {
-        res.status(data.getCode());
-        return data.formatResponse();
+      map((data: any) => {
+        return data.toPrimitives();
       }),
     );
   }

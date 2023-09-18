@@ -2,6 +2,7 @@ import { Aggregate, DateValueObject, Email, Image, Primitives, StringValueObject
 import { GuildConfiguration } from './GuildConfiguration';
 import { GuildCreatedDomainEvent } from './GuildCreatedDomainEvent';
 import { GuildPlan } from './GuildPlan';
+import { Master } from './Master';
 
 export class Guild extends Aggregate {
   public configuration: GuildConfiguration;
@@ -12,6 +13,7 @@ export class Guild extends Aggregate {
   public foundationDate: DateValueObject;
   public objective: StringValueObject;
   public image: Image;
+  private master: Master;
   constructor(data: Primitives<Guild>) {
     super(data);
     this.configuration = new GuildConfiguration(data.configuration);
@@ -24,8 +26,9 @@ export class Guild extends Aggregate {
     this.image = new Image(data.image);
   }
 
-  static Create(data: Primitives<Guild>) {
+  static Create(data: Primitives<Guild>, master: Primitives<Master>) {
     const guild = new Guild(data);
+    guild.setMaster(master);
     guild.record(
       new GuildCreatedDomainEvent({
         aggregateId: guild.id.value,
@@ -35,6 +38,10 @@ export class Guild extends Aggregate {
       }),
     );
     return guild;
+  }
+
+  setMaster(master: Primitives<Master>) {
+    this.master = Master.fromPrimitives(master);
   }
 
   downgradePlan() {
@@ -51,6 +58,14 @@ export class Guild extends Aggregate {
     this.configuration.nextPayment = DateValueObject.today().addDays(30);
   }
 
+  getPlan() {
+    return this.configuration.plan;
+  }
+
+  getMasterPrimitives() {
+    return this.master.toPrimitives();
+  }
+
   public toPrimitives(): Primitives<Guild> {
     return {
       id: this.id.value,
@@ -63,7 +78,7 @@ export class Guild extends Aggregate {
       objective: this.objective.value,
       image: this.image.value,
       createdAt: this.createdAt.value,
-      updatedAt: this.updatedAt.value,
+      updatedAt: this.updatedAt ? this.updatedAt.value : null,
     };
   }
 }

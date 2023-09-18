@@ -1,6 +1,5 @@
-import { Command, CommandHandler, Primitives, Uuid } from 'core';
-import { GuildNotFoundError } from '../../../Guild/domain/GuildNotFoundError';
-import { GuildRepository } from '../../../Guild/domain/GuildRepository';
+import { Command, CommandHandler, Primitives, QueryBus } from 'core';
+import { GetGuildInformationQuery } from '../../../Guild/application/GetGuildInformation/GetGuildInformationQuery';
 import { Payment } from '../../domain/Payment';
 import { PaymentRepository } from '../../domain/PaymentRepository';
 import { PaymentService } from '../../domain/PaymentService';
@@ -9,7 +8,7 @@ import { CreateSessionCommand } from './CreateSessionCommand';
 
 export class CreateSessionHandler implements CommandHandler<CreateSessionCommand> {
   constructor(
-    private readonly guildRepository: GuildRepository,
+    private readonly queryBus: QueryBus,
     private readonly paymentRepository: PaymentRepository,
     private readonly paymentService: PaymentService,
   ) {}
@@ -18,17 +17,12 @@ export class CreateSessionHandler implements CommandHandler<CreateSessionCommand
   }
 
   async handle({ guildId, period }: CreateSessionCommand): Promise<void> {
-    const guild = await this.guildRepository.findGuildById(new Uuid(guildId));
-    if (!guild) throw new GuildNotFoundError(guildId);
+    const guild = await this.queryBus.ask(new GetGuildInformationQuery(guildId));
 
-    const price = await this.paymentRepository.findPriceByPlanAndPeriod(guild.configuration.plan, period);
-    if (!price) throw new Error('Price not found');
-
-    const { sessionId, url } = await this.paymentService.createSession(price);
+    const { sessionId, url } = await this.paymentService.createSession(guild.getPlan(), period);
     const paymentData = {
       guildId: guild.id.value,
       sessionId,
-      priceId: price.id.value,
       status: PaymentStatusEnum.PENDING,
       paymentDate: new Date(),
       url,

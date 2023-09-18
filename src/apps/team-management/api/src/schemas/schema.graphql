@@ -8,7 +8,6 @@ type Mutation {
 }
 
 type Query {
-  ping: String
   login(identifier: String, password: String): LoginMember
   guildInformation(guildId: String): Guild
   getLastSession(guildId: String): Payment

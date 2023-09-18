@@ -1,5 +1,6 @@
 import { Error, InternalError } from 'core';
 export function GraphQLErrorHandling(gqlError: any, e: any) {
+  console.log(gqlError);
   let error: Error;
   if (e.originalError.thrownValue instanceof Error) {
     error = e.originalError.thrownValue;

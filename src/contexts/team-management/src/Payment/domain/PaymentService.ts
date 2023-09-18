@@ -1,5 +1,5 @@
-import { Price } from './Price';
+import { GuildPlan } from '../../Guild/domain/GuildPlan';
 
 export interface PaymentService {
-  createSession(price: Price): Promise<{ sessionId: string; url: string }>;
+  createSession(plan: GuildPlan, period: string): Promise<{ sessionId: string; url: string }>;
 }

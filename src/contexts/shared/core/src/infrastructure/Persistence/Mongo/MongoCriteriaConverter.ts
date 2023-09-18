@@ -10,9 +10,11 @@ interface TransformerFunction<T, K> {
 type MongoFilterOperator = '$eq' | '$ne' | '$gt' | '$lt' | '$regex' | '$in' | '$nin';
 type MongoFilterValue = boolean | string | number | any;
 type MongoFilterOperation = { [operator in MongoFilterOperator]?: MongoFilterValue };
-type MongoFilter = { [field: string]: MongoFilterOperation } | { [field: string]: { $not: MongoFilterOperation } | MongoFilter[] };
-type MongoDirection = 1 | -1;
-type MongoSort = { [field: string]: MongoDirection };
+export type MongoFilter =
+  | { [field: string]: MongoFilterOperation }
+  | { [field: string]: { $not: MongoFilterOperation } | MongoFilter[] };
+export type MongoDirection = 1 | -1;
+export type MongoSort = { [field: string]: MongoDirection };
 
 interface MongoQuery {
   filter: MongoFilter;
@@ -45,13 +47,13 @@ export class MongoCriteriaConverter {
       };
     return {
       filter: criteria.hasFilter() ? this.Filter(criteria.filters) : {},
-      sort: criteria.order.hasOrder() ? this.generateSort(criteria.order) : { _id: -1 },
+      sort: criteria.order.hasOrder() ? this.Sort(criteria.order) : { _id: -1 },
       skip: criteria.hasPaginator() ? criteria.paginator.offset.getValue() : 0,
       limit: criteria.hasPaginator() ? criteria.paginator.limit.getValue() : 1,
     };
   }
 
-  protected Filter(filters: Filters): MongoFilter {
+  public Filter(filters: Filters): MongoFilter {
     const filter = filters.filters.map((filter) => {
       const transformer = this.filterTransformers.get(filter.operator.value);
 
@@ -67,10 +69,18 @@ export class MongoCriteriaConverter {
     return Object.assign({}, ...filter);
   }
 
-  protected generateSort(order: Order): MongoSort {
+  public Sort(order: Order): MongoSort {
     return {
       [order.orderBy.value === 'id' ? '_id' : order.orderBy.value]: order.orderType.isAsc() ? 1 : -1,
     };
+  }
+
+  public Search(text: string) {
+    return [
+      { $match: { $text: { $search: text } } },
+      { $addFields: { score: { $meta: 'textScore' } } },
+      { $sort: { score: { $meta: 'textScore' } } },
+    ];
   }
 
   private equalFilter(filter: Filter): MongoFilter {

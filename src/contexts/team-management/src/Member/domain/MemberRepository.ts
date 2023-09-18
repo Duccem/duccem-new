@@ -6,6 +6,7 @@ export interface MemberRepository {
   create(id: Uuid, member: Member): Promise<void>;
   getByEmail(email: string): Promise<Nullable<Member>>;
   getById(id: Uuid): Promise<Nullable<Member>>;
+  getByGuildId(guildId: Uuid): Promise<Nullable<Member>>;
 }
 
 export interface MemberClientRepository {

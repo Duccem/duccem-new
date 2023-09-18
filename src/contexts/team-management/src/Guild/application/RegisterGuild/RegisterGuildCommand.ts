@@ -4,11 +4,11 @@ import { Guild } from '../../domain/Guild';
 
 export class RegisterGuildCommand extends Command {
   readonly guild: Primitives<Guild>;
-  readonly admin: any;
+  readonly master: Primitives<Member>;
 
-  constructor(guild: Primitives<Guild>, admin: Primitives<Member>) {
+  constructor(guild: Primitives<Guild>, master: Primitives<Member>) {
     super();
     this.guild = guild;
-    this.admin = admin;
+    this.master = master;
   }
 }

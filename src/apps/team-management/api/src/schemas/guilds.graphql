@@ -21,6 +21,7 @@ type Guild {
   objective: String
   image: String
   configuration: GuildConfiguration
+  master: Member
 }
 
 input GuildConfigurationRegister {

@@ -5,7 +5,6 @@ import { PaymentSuccessEvent } from './PaymentSuccessEvent';
 
 export class Payment extends Aggregate {
   guildId: Uuid;
-  priceId: Uuid;
   sessionId: StringValueObject;
   paymentDate: DateValueObject;
   status: PaymentStatus;
@@ -17,7 +16,6 @@ export class Payment extends Aggregate {
     this.sessionId = new StringValueObject(data.sessionId);
     this.paymentDate = new DateValueObject(data.paymentDate);
     this.status = new PaymentStatus(data.status);
-    this.priceId = new Uuid(data.priceId);
     this.url = new StringValueObject(data.url);
   }
 
@@ -52,7 +50,6 @@ export class Payment extends Aggregate {
       sessionId: this.sessionId.value,
       paymentDate: this.paymentDate.value,
       status: this.status.value,
-      priceId: this.priceId.value,
       url: this.url.value,
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt.value,
