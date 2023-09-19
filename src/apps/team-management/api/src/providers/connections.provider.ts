@@ -10,30 +10,24 @@ export const connections: Provider[] = [
     inject: ['DATABASE_CONFIGURATION'],
     useFactory: async (databaseConf: any) => {
       const client = await MongoClient.connect(databaseConf.uri);
-      return new MongoConnection(databaseConf.name, client);
+      return new MongoConnection(client);
     },
   },
   {
     provide: 'QUEUE_CONNECTION',
     inject: ['QUEUE_CONFIGURATION'],
     useFactory: async (queueConf: any) => {
-      try {
-        console.log(queueConf);
-        const connection = await connect('amqp://guest:guest@rabbitmq:5672');
-        const channel = await connection.createConfirmChannel();
-        await channel.prefetch(1);
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHSDJKAHGDF');
-        return new RabbitMQConnection(channel);
-      } catch (error) {
-        console.log(error);
-      }
+      const connection = await connect(queueConf.uri);
+      const channel = await connection.createConfirmChannel();
+      await channel.prefetch(1);
+      return new RabbitMQConnection(channel);
     },
   },
   {
     provide: 'CACHE_CONNECTION',
     inject: ['CACHE_CONFIGURATION'],
     useFactory: async (cacheConf: any) => {
-      const client = createClient(cacheConf);
+      const client = createClient({ url: cacheConf.uri });
       await client.connect();
       return new RedisConnection(client);
     },
