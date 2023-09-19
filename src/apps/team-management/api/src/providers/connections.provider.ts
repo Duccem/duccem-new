@@ -17,10 +17,16 @@ export const connections: Provider[] = [
     provide: 'QUEUE_CONNECTION',
     inject: ['QUEUE_CONFIGURATION'],
     useFactory: async (queueConf: any) => {
-      const connection = await connect(queueConf);
-      const channel = await connection.createConfirmChannel();
-      await channel.prefetch(1);
-      return new RabbitMQConnection(channel);
+      try {
+        console.log(queueConf);
+        const connection = await connect('amqp://guest:guest@rabbitmq:5672');
+        const channel = await connection.createConfirmChannel();
+        await channel.prefetch(1);
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHSDJKAHGDF');
+        return new RabbitMQConnection(channel);
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   {

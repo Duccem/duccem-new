@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  mongo_db:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27018:27017"
+    logging:
+      driver: none
+    networks:
+      - ducen_network
+  redis:
+    image: redis
+    container_name: redis
+    logging:
+      driver: none
+    ports:
+      - "6378:6379"
+    networks:
+      - ducen_network
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    networks:
+      - ducen_network
+    logging:
+      driver: none
+  ducen-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev:docker -w api
+    depends_on:
+      - rabbitmq
+      - mongo_db
+      - redis
+    networks:
+      - ducen_network
+networks:
+  ducen_network:
+    driver: bridge
