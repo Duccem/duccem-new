@@ -5,11 +5,11 @@ import { Nullable } from '../../../domain/Types/Nullable';
 
 export class MongoConnection {
   constructor(
-    private database: string,
     private connection: MongoClient,
+    private dbName?: string,
   ) {}
   getConnection(): Nullable<Db> {
-    return this.connection.db(this.database);
+    return this.connection.db(this.dbName ? this.dbName : undefined);
   }
   async transaction(fn: WithTransactionCallback<void>) {
     const session = this.connection.startSession();
