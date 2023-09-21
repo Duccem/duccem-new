@@ -46,7 +46,7 @@ export class RabbitMQEventBus implements EventBus {
     this.deserializer = DomainEventDeserializer.configure(subscribers);
     for (const subscriber of subscribers) {
       const queueName = RabbitMQFormatter.formatQueue(subscriber);
-      const consumer = new RabbitMQConsumer(subscriber, this.connection, this.deserializer, queueName, this.exchange, 1000);
+      const consumer = new RabbitMQConsumer(subscriber, this.connection, this.deserializer, queueName, this.exchange, 0);
       await this.connection.consume(queueName, consumer.onMessage.bind(consumer));
     }
   }

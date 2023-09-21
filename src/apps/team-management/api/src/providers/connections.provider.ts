@@ -20,7 +20,7 @@ export const connections: Provider[] = [
       const connection = await connect(queueConf.uri);
       const channel = await connection.createConfirmChannel();
       await channel.prefetch(1);
-      return new RabbitMQConnection(channel);
+      return new RabbitMQConnection(channel, connection);
     },
   },
   {

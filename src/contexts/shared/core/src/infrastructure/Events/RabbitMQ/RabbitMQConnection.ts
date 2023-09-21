@@ -1,9 +1,12 @@
-import { ConfirmChannel, ConsumeMessage } from 'amqplib';
+import { ConfirmChannel, Connection, ConsumeMessage } from 'amqplib';
 import { RabbitMQFormatter } from './RabbitMQFormatter';
 
 export class RabbitMQConnection {
   private channel?: ConfirmChannel;
-  constructor(channel: ConfirmChannel) {
+  constructor(
+    channel: ConfirmChannel,
+    private readonly connection: Connection,
+  ) {
     this.channel = channel;
   }
 
@@ -48,6 +51,10 @@ export class RabbitMQConnection {
     this.channel?.ack(message);
   }
 
+  async deleteQueue(queue: string) {
+    return await this.channel!.deleteQueue(queue);
+  }
+
   async retry(message: ConsumeMessage, queue: string, exchange: string) {
     const retryExchange = RabbitMQFormatter.formatExchangeRetryName(exchange);
     const options = this.getMessageOptions(message);
@@ -87,5 +94,10 @@ export class RabbitMQConnection {
 
   private hasBeenRedelivered(message: ConsumeMessage) {
     return message.properties.headers['redelivery_count'] !== undefined;
+  }
+
+  async close() {
+    await this.channel?.close();
+    await this.connection.close();
   }
 }
