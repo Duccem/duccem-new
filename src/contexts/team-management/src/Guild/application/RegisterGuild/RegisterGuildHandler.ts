@@ -16,7 +16,7 @@ export class RegisterGuildHandler implements CommandHandler<RegisterGuildCommand
   }
 
   async handle({ guild, master }: RegisterGuildCommand): Promise<void> {
-    const newGuild = Guild.Create(guild, master);
+    const newGuild = Guild.Create(guild);
     master.guildId = newGuild.id.value;
     const existGuild = await this.guildRepository.findGuildByName(newGuild.name.value);
     if (existGuild) throw new GuildAlreadyExistError(guild.name);

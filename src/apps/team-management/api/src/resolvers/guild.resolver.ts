@@ -1,7 +1,7 @@
 import { Inject, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { CommandBus, QueryBus } from 'core';
-import { ChoosePlanCommand, GetGuildInformationQuery, GetMemberMasterQuery, RegisterGuildCommand } from 'team-management';
+import { ChoosePlanCommand, GetGuildInformationQuery, GetMemberMasterQuery, Member, RegisterGuildCommand } from 'team-management';
 import { ResponseModeler } from '../utils/Responses/ResponseInterceptor';
 
 @Resolver('Guild')
@@ -34,7 +34,7 @@ export class GuildResolver {
   @ResolveField('master')
   async master(@Parent() guild: any) {
     const query = new GetMemberMasterQuery(guild.id);
-    const master = await this.queryBus.ask(query);
+    const master = await this.queryBus.ask<Member>(query);
     return master.toPrimitives();
   }
 }

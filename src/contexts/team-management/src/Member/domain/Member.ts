@@ -56,26 +56,6 @@ export class Member extends Aggregate {
     return member;
   }
 
-  public generateToken(): any {
-    const payload = {
-      memberId: this.id.value,
-      guildId: this.guildId.value,
-      roleId: this.roleId?.value,
-      nickname: this.nickname.value,
-      configuration: this.configuration.toPrimitives(),
-    };
-    return payload;
-  }
-
-  public validatePassword(password: string): void {
-    if (!this.password.compare(password)) throw new IncorrectPassword();
-  }
-  public changePassword(newPassword: string, oldPassword: string): void {
-    if (!this.password.compare(oldPassword)) throw new IncorrectPassword();
-    this.password = new MemberPassword(newPassword);
-    this.password.encrypt();
-  }
-
   public toPrimitives(): Primitives<Member> {
     return {
       id: this.id.value,
@@ -96,5 +76,26 @@ export class Member extends Aggregate {
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt ? this.updatedAt.value : null,
     };
+  }
+
+  public generateToken(): any {
+    const payload = {
+      memberId: this.id.value,
+      guildId: this.guildId.value,
+      roleId: this.roleId?.value,
+      nickname: this.nickname.value,
+      configuration: this.configuration.toPrimitives(),
+    };
+    return payload;
+  }
+
+  public validatePassword(password: string): void {
+    if (!this.password.compare(password)) throw new IncorrectPassword();
+  }
+
+  public changePassword(newPassword: string, oldPassword: string): void {
+    if (!this.password.compare(oldPassword)) throw new IncorrectPassword();
+    this.password = new MemberPassword(newPassword);
+    this.password.encrypt();
   }
 }

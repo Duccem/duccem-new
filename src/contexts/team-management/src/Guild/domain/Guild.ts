@@ -1,8 +1,8 @@
 import { Aggregate, DateValueObject, Email, Image, Primitives, StringValueObject } from 'core';
 import { GuildConfiguration } from './GuildConfiguration';
 import { GuildCreatedDomainEvent } from './GuildCreatedDomainEvent';
-import { GuildPlan } from './GuildPlan';
-import { Master } from './Master';
+import { GuildPlan, GuildPlanEnum } from './GuildPlan';
+import { GuildPlanStatus } from './GuildPlanStatus';
 
 export class Guild extends Aggregate {
   public configuration: GuildConfiguration;
@@ -13,7 +13,6 @@ export class Guild extends Aggregate {
   public foundationDate: DateValueObject;
   public objective: StringValueObject;
   public image: Image;
-  private master: Master;
   constructor(data: Primitives<Guild>) {
     super(data);
     this.configuration = new GuildConfiguration(data.configuration);
@@ -26,9 +25,8 @@ export class Guild extends Aggregate {
     this.image = new Image(data.image);
   }
 
-  static Create(data: Primitives<Guild>, master: Primitives<Master>) {
+  static Create(data: Primitives<Guild>) {
     const guild = new Guild(data);
-    guild.setMaster(master);
     guild.record(
       new GuildCreatedDomainEvent({
         aggregateId: guild.id.value,
@@ -40,30 +38,8 @@ export class Guild extends Aggregate {
     return guild;
   }
 
-  setMaster(master: Primitives<Master>) {
-    this.master = Master.fromPrimitives(master);
-  }
-
-  downgradePlan() {
-    this.configuration.changePlan(GuildPlan.Free());
-  }
-
-  changePlan(plan: GuildPlan) {
-    this.configuration.changePlan(plan);
-  }
-
-  payPlan() {
-    this.configuration.planStatus = new StringValueObject('paid');
-    this.configuration.lastPayment = DateValueObject.today();
-    this.configuration.nextPayment = DateValueObject.today().addDays(30);
-  }
-
-  getPlan() {
-    return this.configuration.plan;
-  }
-
-  getMasterPrimitives() {
-    return this.master.toPrimitives();
+  static fromPrimitives(data: Primitives<Guild>) {
+    return new Guild(data);
   }
 
   public toPrimitives(): Primitives<Guild> {
@@ -80,5 +56,27 @@ export class Guild extends Aggregate {
       createdAt: this.createdAt.value,
       updatedAt: this.updatedAt ? this.updatedAt.value : null,
     };
+  }
+
+  downgradePlan() {
+    this.configuration.plan = GuildPlan.Free();
+    this.configuration.planStatus = GuildPlanStatus.None();
+    this.configuration.lastPayment = DateValueObject.today();
+    this.configuration.nextPayment = DateValueObject.today().addDays(30);
+  }
+
+  changePlan(plan: GuildPlanEnum) {
+    const newPlan = new GuildPlan(plan);
+    this.configuration.plan = newPlan;
+  }
+
+  payPlan() {
+    this.configuration.planStatus = GuildPlanStatus.Paid();
+    this.configuration.lastPayment = DateValueObject.today();
+    this.configuration.nextPayment = DateValueObject.today().addDays(30);
+  }
+
+  getPlan() {
+    return this.configuration.plan.value;
   }
 }

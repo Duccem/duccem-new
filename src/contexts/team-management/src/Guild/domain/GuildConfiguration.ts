@@ -1,5 +1,6 @@
 import { BaseObject, DateValueObject, Primitives, StringValueObject } from 'core';
 import { GuildPlan } from './GuildPlan';
+import { GuildPlanStatus, GuildPlanStatusEnum } from './GuildPlanStatus';
 
 export class GuildConfiguration extends BaseObject {
   category: StringValueObject;
@@ -8,7 +9,7 @@ export class GuildConfiguration extends BaseObject {
   lang: StringValueObject;
   lastPayment: DateValueObject;
   nextPayment: DateValueObject;
-  planStatus: StringValueObject;
+  planStatus: GuildPlanStatus;
 
   constructor(data: Primitives<GuildConfiguration>) {
     super();
@@ -18,11 +19,7 @@ export class GuildConfiguration extends BaseObject {
     this.lang = new StringValueObject(data.lang);
     this.nextPayment = data.nextPayment ? new DateValueObject(data.nextPayment) : DateValueObject.today();
     this.lastPayment = data.nextPayment ? new DateValueObject(data.nextPayment) : DateValueObject.today();
-    this.planStatus = new StringValueObject(data.planStatus || 'paid');
-  }
-
-  changePlan(plan: GuildPlan): void {
-    this.plan = plan;
+    this.planStatus = new GuildPlanStatus(data.planStatus || GuildPlanStatusEnum.PAID);
   }
 
   public toPrimitives(): Primitives<GuildConfiguration> {
