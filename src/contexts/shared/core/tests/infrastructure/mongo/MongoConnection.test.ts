@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { MongoConnection } from '../../../src/infrastructure/Persistence/Mongo/MongoConnection';
-import { MongoConnectionMother } from './__mocks__/MongoConnectionMother';
+import { MongoConnectionMother } from './MongoConnectionMother';
 
 describe('MongoConnection', () => {
   let connection: MongoConnection;

@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { MongoConnection } from '../../../../src/infrastructure/Persistence/Mongo/MongoConnection';
+import { MongoConnection } from '../../../src/infrastructure/Persistence/Mongo/MongoConnection';
 
 export class MongoConnectionMother {
   static async create(db?: string) {

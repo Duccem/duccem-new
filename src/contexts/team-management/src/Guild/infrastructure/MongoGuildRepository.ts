@@ -1,10 +1,10 @@
-import { CacheStore, MongoConnection, MongoRepository, Nullable, Primitives, Uuid } from 'core';
+import { MongoConnection, MongoRepository, Nullable, Primitives, Uuid } from 'core';
 import { Guild } from '../domain/Guild';
 import { GuildRepository } from '../domain/GuildRepository';
 
 export class MongoGuildRepository extends MongoRepository<Guild> implements GuildRepository {
-  constructor(connection: MongoConnection, store: CacheStore) {
-    super(connection, store, Guild);
+  constructor(connection: MongoConnection) {
+    super(connection, Guild);
   }
 
   async findGuildByName(guildName: string): Promise<Nullable<Guild>> {

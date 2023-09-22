@@ -1,0 +1,33 @@
+import { Uuid } from 'core';
+import { Guild } from '../../../src/Guild/domain/Guild';
+import { GuildRepository } from '../../../src/Guild/domain/GuildRepository';
+
+export class MockGuildRepository implements GuildRepository {
+  findByIdMock: jest.Mock = jest.fn();
+  findByNameMock: jest.Mock = jest.fn();
+  registerGuildMock: jest.Mock = jest.fn();
+  guild: Guild;
+  async findGuildById(guildId: Uuid): Promise<Guild> {
+    this.findByIdMock(guildId);
+    return this.guild;
+  }
+  async registerGuild(guild: Guild): Promise<void> {
+    this.registerGuildMock(guild);
+  }
+  async findGuildByName(guildName: string): Promise<Guild> {
+    this.findByNameMock(guildName);
+    return this.guild;
+  }
+
+  assertRegisterHaveBeenCalledWith(guild: Guild): void {
+    expect(this.registerGuildMock).toHaveBeenCalledWith(guild);
+  }
+
+  assertFindByIdHaveBeenCalledWith(guildId: Uuid): void {
+    expect(this.findByIdMock).toHaveBeenCalledWith(guildId);
+  }
+
+  assertFindByNameHaveBeenCalledWith(guildName: string): void {
+    expect(this.findByNameMock).toHaveBeenCalledWith(guildName);
+  }
+}
