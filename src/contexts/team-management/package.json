@@ -21,6 +21,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "^9.0.2"
+    "@types/jsonwebtoken": "^9.0.2",
+    "mock-apollo-client": "^1.2.1"
   }
 }

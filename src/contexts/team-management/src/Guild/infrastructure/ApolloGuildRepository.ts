@@ -13,13 +13,16 @@ export class ApolloGuildRepository extends ApolloRepository<Guild> implements Gu
     super(client, Guild);
   }
   async registerGuild(guild: Guild, admin: Member): Promise<void> {
-    await this.client.mutate({
+    const result = await this.client.mutate({
       mutation: REGISTER_GUILD,
       variables: {
         guild: guild.withOutNulls(),
         user: admin.withOutNulls(),
       },
     });
+    if (result.errors) {
+      throw new Error(result.errors[0].message);
+    }
   }
 
   async getGuildInformation(guildId: Uuid): Promise<NonNullable<Guild>> {
@@ -36,12 +39,15 @@ export class ApolloGuildRepository extends ApolloRepository<Guild> implements Gu
   }
 
   async choosePlan(guildId: Uuid, plan: string): Promise<void> {
-    await this.client.mutate({
+    const result = await this.client.mutate({
       mutation: CHOOSE_PLAN,
       variables: {
         guildId: guildId.value,
         plan,
       },
     });
+    if (result.errors) {
+      throw new Error(result.errors[0].message);
+    }
   }
 }

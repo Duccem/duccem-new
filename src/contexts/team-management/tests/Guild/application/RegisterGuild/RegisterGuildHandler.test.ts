@@ -1,5 +1,6 @@
 import { CommandBusMock, EventBusMock } from 'core';
 import { RegisterGuildHandler } from '../../../../src/Guild/application/RegisterGuild/RegisterGuildHandler';
+import { GuildAlreadyExistError } from '../../../../src/Guild/domain/GuildAlreadyExistError';
 import { MemberRegisterCommandMother } from '../../../Member/domain/MemberRegisterCommandMother';
 import { MockGuildRepository } from '../../__mocks__/MockGuildRepository';
 import { GuildCreatedDomainEventMother } from '../../domain/GuildCreatedDomainEventMother';
@@ -29,5 +30,12 @@ describe('RegisterGuild', () => {
     repository.assertRegisterHaveBeenCalledWith(guild);
     eventBus.assertLastPublishedEventIs(event);
     commandBus.assertLastPublishedEventIs(memberCommand);
+  });
+
+  it('should throw an error when guild already exist', async () => {
+    const command = RegisterGuildCommandMother.create();
+    const guild = GuildMother.create(command.guild);
+    repository.returnOnFindByName(guild);
+    await expect(handler.handle(command)).rejects.toBeInstanceOf(GuildAlreadyExistError);
   });
 });

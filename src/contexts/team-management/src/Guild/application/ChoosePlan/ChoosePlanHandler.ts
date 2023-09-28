@@ -1,5 +1,6 @@
 import { Command, CommandHandler, Uuid } from 'core';
-import { GuildPlan, GuildPlanEnum } from '../../domain/GuildPlan';
+import { GuildNotFoundError } from '../../domain/GuildNotFoundError';
+import { GuildPlanEnum } from '../../domain/GuildPlan';
 import { GuildRepository } from '../../domain/GuildRepository';
 import { ChoosePlanCommand } from './ChoosePlanCommand';
 
@@ -11,7 +12,8 @@ export class ChoosePlanHandler implements CommandHandler<ChoosePlanCommand> {
 
   async handle({ guildId, plan }: ChoosePlanCommand): Promise<void> {
     const guild = await this.guildRepository.findGuildById(new Uuid(guildId));
-    guild.changePlan(new GuildPlan(plan as GuildPlanEnum));
+    if (!guild) throw new GuildNotFoundError(guildId);
+    guild.changePlan(plan as GuildPlanEnum);
     await this.guildRepository.registerGuild(guild);
   }
 }

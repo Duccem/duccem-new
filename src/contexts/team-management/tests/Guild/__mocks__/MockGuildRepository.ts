@@ -6,17 +6,14 @@ export class MockGuildRepository implements GuildRepository {
   findByIdMock: jest.Mock = jest.fn();
   findByNameMock: jest.Mock = jest.fn();
   registerGuildMock: jest.Mock = jest.fn();
-  guild: Guild;
   async findGuildById(guildId: Uuid): Promise<Guild> {
-    this.findByIdMock(guildId);
-    return this.guild;
+    return this.findByIdMock(guildId);
   }
   async registerGuild(guild: Guild): Promise<void> {
     this.registerGuildMock(guild);
   }
   async findGuildByName(guildName: string): Promise<Guild> {
-    this.findByNameMock(guildName);
-    return this.guild;
+    return this.findByNameMock(guildName);
   }
 
   assertRegisterHaveBeenCalledWith(guild: Guild): void {
@@ -29,5 +26,13 @@ export class MockGuildRepository implements GuildRepository {
 
   assertFindByNameHaveBeenCalledWith(guildName: string): void {
     expect(this.findByNameMock).toHaveBeenCalledWith(guildName);
+  }
+
+  returnOnFindById(guild: Guild): void {
+    this.findByIdMock.mockReturnValue(guild);
+  }
+
+  returnOnFindByName(guild: Guild): void {
+    this.findByNameMock.mockReturnValue(guild);
   }
 }
