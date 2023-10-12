@@ -53,5 +53,18 @@
     "description": "Create a dispatcher",
     "isFileTemplate": true
   },
+  "Mother": {
+    "scope": "typescript",
+    "prefix": "_mth",
+    "body": [
+      "export class $TM_FILENAME_BASE {",
+			"\tstatic create(value?: string): ${TM_FILENAME_BASE/(.*)(Mother)/$1/g} {",
+			"\t\treturn new ${TM_FILENAME_BASE/(.*)(Mother)/$1/g}(value ?? $0);",
+			"\t}",
+			"}",
+    ],
+    "description": "Create a object mother",
+    "isFileTemplate": true
   }
 }
+

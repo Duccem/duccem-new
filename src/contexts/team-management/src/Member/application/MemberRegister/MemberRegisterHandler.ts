@@ -18,10 +18,8 @@ export class MemberRegisterHandler implements CommandHandler<MemberRegisterComma
       this.repository.identify(member.nickname),
       this.repository.identify(member.email),
     ]);
-
     if (existUserByUsername) throw new MemberAlreadyExistError(member.nickname);
     if (existUserByEmail) throw new MemberAlreadyExistError(member.email);
-
     const user = Member.Create(member);
     await this.repository.create(user.id, user);
     await this.eventBus.publish(user.pullDomainEvents());

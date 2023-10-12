@@ -2,7 +2,7 @@ import { MotherCreator } from 'core';
 
 export class MemberDataMother {
   static password(): string {
-    return MotherCreator.random().internet.password();
+    return MotherCreator.random().helpers.fromRegExp(/[A-Z][a-z][0-9][#?!@$%^&*-]{8}/);;
   }
 
   static biography(): string {

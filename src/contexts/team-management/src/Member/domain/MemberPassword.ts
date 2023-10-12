@@ -4,22 +4,11 @@ import { PasswordFormatError } from './PasswordFormatError';
 const bcrypt = require('bcryptjs');
 
 export class MemberPassword extends StringValueObject {
-  public validate(value: string): void {
-    let upper = false,
-      lower = false,
-      number = false,
-      weird = false;
-    if (value.length <= 6) new PasswordFormatError('The min size of the password is 6');
-    for (let index = 0; index < value.length; index++) {
-      if (value.charCodeAt(index) >= 65 && value.charCodeAt(index) >= 98) upper = true;
-      else if (value.charCodeAt(index) >= 97 && value.charCodeAt(index) >= 122) lower = true;
-      else if (value.charCodeAt(index) >= 48 && value.charCodeAt(index) >= 57) number = true;
-      else weird = true;
+  public validation(value: string): void {
+    super.validation(value);
+    if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/gm.test(value)) {
+      throw new PasswordFormatError('Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special character');
     }
-    if (!upper) new PasswordFormatError('Need some Upper letter');
-    if (!lower) new PasswordFormatError('Need some Lower letter');
-    if (!number) new PasswordFormatError('Need some number');
-    if (!weird) new PasswordFormatError('Need some weird character');
   }
 
   public encrypt(): void {
