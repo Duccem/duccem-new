@@ -1,11 +1,11 @@
-import { CacheStore, MongoConnection, MongoRepository, Nullable, Primitives } from 'core';
+import { MongoConnection, MongoRepository, Nullable, Primitives } from 'core';
 import { Payment } from '../domain/Payment';
 import { PaymentRepository } from '../domain/PaymentRepository';
 import { PaymentStatusEnum } from '../domain/PaymentStatus';
 
 export class MongoPaymentRepository extends MongoRepository<Payment> implements PaymentRepository {
-  constructor(connection: MongoConnection, store: CacheStore) {
-    super(connection, store, Payment);
+  constructor(connection: MongoConnection) {
+    super(connection, Payment);
   }
 
   async save(payment: Payment): Promise<void> {
