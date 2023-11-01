@@ -11,6 +11,10 @@ export class MongoConnection {
   getConnection(): Nullable<Db> {
     return this.connection.db(this.dbName ? this.dbName : undefined);
   }
+
+  get client(): MongoClient {
+    return this.connection;
+  }
   async transaction(fn: WithTransactionCallback<void>) {
     const session = this.connection.startSession();
     try {

@@ -1,6 +1,5 @@
 import { Collection } from 'mongodb';
 import { Aggregate } from '../../../domain/Aggregate';
-import { CacheStore } from '../../../domain/CacheStore';
 import { Criteria } from '../../../domain/Criteria/Criteria';
 import { EntityConstructor } from '../../../domain/Types/EntityConstructor';
 import { Primitives } from '../../../domain/Types/Primitives';
@@ -10,7 +9,6 @@ export abstract class MongoRepository<T extends Aggregate> {
   protected converter: MongoCriteriaConverter = new MongoCriteriaConverter();
   constructor(
     protected connection: MongoConnection,
-    protected cache: CacheStore,
     protected entity: EntityConstructor<T>,
   ) {}
   protected get collection(): Collection {

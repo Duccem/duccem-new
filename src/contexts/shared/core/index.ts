@@ -83,3 +83,15 @@ export * from './src/infrastructure/Persistence/Mongo/MongoDao';
 export * from './src/infrastructure/Persistence/Mongo/MongoRepository';
 export * from './src/infrastructure/Query/InMemoryQueryBus';
 export * from './src/infrastructure/Query/QueryHandlers';
+
+export * from './tests/domain/EmailMother';
+export * from './tests/domain/IntegerMother';
+export * from './tests/domain/MotherCreator';
+export * from './tests/domain/UuidMother';
+export * from './tests/domain/WordMother';
+export * from './tests/infrastructure/CommandBus/__mocks__/CommandBusMock';
+export * from './tests/infrastructure/EventBus/__mocks__/EventBusMock';
+export * from './tests/infrastructure/QueryBus/__mocks__/QueryBusMock';
+export * from './tests/infrastructure/mongo/MongoArranger';
+export * from './tests/infrastructure/mongo/MongoConnectionMother';
+

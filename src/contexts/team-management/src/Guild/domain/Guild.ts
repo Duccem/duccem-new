@@ -58,13 +58,6 @@ export class Guild extends Aggregate {
     };
   }
 
-  downgradePlan() {
-    this.configuration.plan = GuildPlan.Free();
-    this.configuration.planStatus = GuildPlanStatus.None();
-    this.configuration.lastPayment = DateValueObject.today();
-    this.configuration.nextPayment = DateValueObject.today().addDays(30);
-  }
-
   changePlan(plan: GuildPlanEnum) {
     const newPlan = new GuildPlan(plan);
     this.configuration.plan = newPlan;

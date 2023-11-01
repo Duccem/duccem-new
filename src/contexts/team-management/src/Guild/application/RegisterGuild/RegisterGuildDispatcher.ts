@@ -4,12 +4,13 @@ import { Member } from '../../../Member/domain/Member';
 import { MemberGenderEnum } from '../../../Member/domain/MemberGender';
 import { Guild } from '../../domain/Guild';
 import { GuildPlanEnum } from '../../domain/GuildPlan';
+import { GuildPlanStatusEnum } from '../../domain/GuildPlanStatus';
 import { GuildClientRepository } from '../../domain/GuildRepository';
 
 export class RegisterGuildDispatcher {
   constructor(private readonly repository: GuildClientRepository) {}
 
-  async dispatch(guildData: Primitives<Guild>, admin: Primitives<Member>): Promise<Guild> {
+  async dispatch(guildData: Primitives<Guild>, admin: Primitives<Member>): Promise<{ guild: Guild; master: Member }> {
     const guild = new Guild({
       ...guildData,
       description: '',
@@ -21,17 +22,17 @@ export class RegisterGuildDispatcher {
         timezone: 'America/Caracas',
         lastPayment: new Date(),
         nextPayment: addDays(new Date(), 30),
-        planStatus: 'success',
+        planStatus: GuildPlanStatusEnum.PENDING,
       },
     });
-    const member = new Member({
+    const master = new Member({
       ...admin,
       phoneNumber: '',
       gender: MemberGenderEnum.MALE,
       photo: '',
       biography: '',
     });
-    await this.repository.registerGuild(guild, member);
-    return guild;
+    await this.repository.registerGuild(guild, master);
+    return { guild, master };
   }
 }
