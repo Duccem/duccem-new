@@ -1,10 +1,11 @@
-import { EventBusMock, NotFoundError, UuidMother } from "core";
+import { NotFoundError, UuidMother } from "core";
 import { SessionStatusChangedCommand } from "../../../../src/Payment/application/SessionStatusChanged/SessionStatusChangedCommand";
 import { SessionStatusChangedHandler } from "../../../../src/Payment/application/SessionStatusChanged/SessionStatusChangedHandler";
 import { PaymentEventType } from "../../../../src/Payment/domain/PaymentEventType";
 import { PaymentExpireEvent } from "../../../../src/Payment/domain/PaymentExpireEvent";
 import { PaymentStatusEnum } from "../../../../src/Payment/domain/PaymentStatus";
 import { PaymentSuccessEvent } from "../../../../src/Payment/domain/PaymentSuccessEvent";
+import { EventBusMock } from "../../../__mocks__/EventBusMock";
 import { MockPaymentRepository } from "../../__mocks__/MockPaymentRepository";
 import { PaymentMother } from "../../domain/PaymentMother";
 

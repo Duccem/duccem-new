@@ -10,7 +10,7 @@
     ],
     "declaration": true,
     "declarationMap": true,
-    "target": "ES2015",
+    "target": "ES2021",
     "sourceMap": true,
     "skipLibCheck": true,
     "noImplicitOverride": false,
@@ -19,6 +19,9 @@
     "noFallthroughCasesInSwitch": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-
+    "types": [
+      "node",
+      "jest"
+    ]
   },
 }

@@ -20,8 +20,8 @@ export const services: Provider[] = [
   },
   {
     provide: 'PAYMENT_SERVICE',
-    inject: ['PAYMENT_CONFIGURATION'],
-    useFactory: (conf: any) => new StripePaymentService(conf.secretKey),
+    inject: ['PAYMENT_CONFIGURATION', 'SERVER_CONFIGURATION'],
+    useFactory: (conf: any, server: any) => new StripePaymentService(conf.secretKey, server.frontendUrl),
   },
   {
     provide: 'LOGGER_SERVICE',

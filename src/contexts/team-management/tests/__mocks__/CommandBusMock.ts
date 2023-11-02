@@ -1,5 +1,5 @@
-import { Command } from '../../../../src/domain/Command';
-import { CommandBus } from '../../../../src/domain/CommandBus';
+import { Command } from 'core/src/domain/Command';
+import { CommandBus } from 'core/src/domain/CommandBus';
 
 export class CommandBusMock implements CommandBus {
   private dispatchSpy = jest.fn();

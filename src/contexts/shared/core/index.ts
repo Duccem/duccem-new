@@ -89,9 +89,6 @@ export * from './tests/domain/IntegerMother';
 export * from './tests/domain/MotherCreator';
 export * from './tests/domain/UuidMother';
 export * from './tests/domain/WordMother';
-export * from './tests/infrastructure/CommandBus/__mocks__/CommandBusMock';
-export * from './tests/infrastructure/EventBus/__mocks__/EventBusMock';
-export * from './tests/infrastructure/QueryBus/__mocks__/QueryBusMock';
 export * from './tests/infrastructure/mongo/MongoArranger';
 export * from './tests/infrastructure/mongo/MongoConnectionMother';
 

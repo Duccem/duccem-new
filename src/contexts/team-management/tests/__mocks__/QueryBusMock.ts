@@ -1,5 +1,5 @@
-import { Query } from '../../../../src/domain/Query';
-import { QueryBus } from '../../../../src/domain/QueryBus';
+import { Query } from 'core/src/domain/Query';
+import { QueryBus } from 'core/src/domain/QueryBus';
 
 export class QueryBusMock implements QueryBus {
   private dispatchSpy = jest.fn();

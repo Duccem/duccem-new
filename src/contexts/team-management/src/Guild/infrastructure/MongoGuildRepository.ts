@@ -14,6 +14,7 @@ export class MongoGuildRepository extends MongoRepository<Guild> implements Guil
 
   async findGuildById(guildId: Uuid): Promise<Nullable<Guild>> {
     const guild = await this.collection.findOne<Primitives<Guild>>({ id: guildId.value });
+    console.log(guild);
     return guild ? new Guild(guild) : null;
   }
 

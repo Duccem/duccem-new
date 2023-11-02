@@ -1,7 +1,8 @@
-import { EventBusMock } from "core";
+
 import { MemberRegisterHandler } from "../../../../src/Member/application/MemberRegister/MemberRegisterHandler";
 import { MemberAlreadyExistError } from "../../../../src/Member/domain/MemberAlreadyExistError";
 import { PasswordFormatError } from "../../../../src/Member/domain/PasswordFormatError";
+import { EventBusMock } from "../../../__mocks__/EventBusMock";
 import { MockMemberRepository } from "../../__mocks__/MockMemberRepository";
 import { MemberCreatedDomainEventMother } from "../../domain/MemberCreatedDomainEventMother";
 import { MemberMother } from "../../domain/MemberMother";

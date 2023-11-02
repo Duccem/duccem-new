@@ -1,8 +1,9 @@
-import { QueryBusMock, UuidMother } from "core";
+import { UuidMother } from "core";
 import { GetGuildInformationQuery } from "../../../../src/Guild/application/GetGuildInformation/GetGuildInformationQuery";
 import { CreateSessionCommand } from "../../../../src/Payment/application/CreateSession/CreateSessionCommand";
 import { CreateSessionHandler } from "../../../../src/Payment/application/CreateSession/CreateSessionHandler";
 import { GuildMother } from "../../../Guild/domain/GuildMother";
+import { QueryBusMock } from "../../../__mocks__/QueryBusMock";
 import { MockPaymentRepository } from "../../__mocks__/MockPaymentRepository";
 import { MockPaymentService } from "../../__mocks__/MockPaymentService";
 

@@ -1,6 +1,6 @@
-import { DomainEvent } from '../../../../src/domain/DomainEvent';
-import { EventBus } from '../../../../src/domain/DomainEventBus';
-import { DomainEventSubscriber } from '../../../../src/domain/DomainEventSubscriber';
+import { DomainEvent } from 'core/src/domain/DomainEvent';
+import { EventBus } from 'core/src/domain/DomainEventBus';
+import { DomainEventSubscriber } from 'core/src/domain/DomainEventSubscriber';
 
 export class EventBusMock implements EventBus {
   configure(subscribers: DomainEventSubscriber[]): void {
