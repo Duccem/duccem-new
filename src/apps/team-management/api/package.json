@@ -9,12 +9,13 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "cross-env NODE_ENV=local nest start --watch",
+    "start:dev": "cross-env NODE_ENV=dev nest start --watch",
+    "start:local": "cross-env NODE_ENV=local nest start --watch",
     "start:dev:docker": "cross-env NODE_ENV=docker nest start --watch",
     "start:debug": "cross-env NODE_ENV=local nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "cypress open"
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "test": "cypress run"
   },
   "dependencies": {
     "@apollo/server": "^4.9.3",
@@ -51,6 +52,7 @@
     "@types/express-session": "^1.17.7",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
+    "@types/on-headers": "^1.0.2",
     "@types/passport-facebook": "^3.0.0",
     "@types/passport-github": "^1.1.8",
     "@types/passport-google-oauth20": "^2.0.11",

@@ -5,15 +5,15 @@ on:
     branches: [main]
     paths:
       - "src/apps/team-management/api/**"
-      - "src/contexts/shared/core/**"
-      - "src/contexts/team-management/**"
   pull_request:
     branches: [main]
     types: [opened,synchronize,reopened]
     paths:
       - "src/apps/team-management/api/**"
-      - "src/contexts/shared/core/**"
-      - "src/contexts/team-management/**"
+  workflow_run:
+    workflows: ["Core CI"]
+    types:
+      - completed
   workflow_dispatch:
 jobs:
   avoid_reduncy:
@@ -23,7 +23,15 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
+  avoid_trigger_on_service:
+    runs-on: ubuntu-22.04
+    name: Cancel workflow
+    if: ${{ contains(github.event.head_commit.message, '[api]') }}
+    steps:
+      - name: Cancel workflow
+        run: echo "Cancel workflow"
   lint:
+    needs: [avoid_trigger_on_service]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
@@ -34,10 +42,11 @@ jobs:
           cache: 'npm'
           node-version: '16.14.2'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --loglevel=error
       - name: Lint
-        run: npm run lint:team:back
+        run: npm run lint -w api
   sonar:
+    needs: [avoid_trigger_on_service]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -51,6 +60,7 @@ jobs:
         with:
           projectBaseDir: src/apps/team-management/api
   build:
+    needs: [avoid_trigger_on_service]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
@@ -61,9 +71,9 @@ jobs:
           cache: 'npm'
           node-version: '16.14.2'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --loglevel=error
       - name: Build
-        run: npm run build:team:back
+        run: npm run build -w api
   test:
     needs: [lint, build, sonar]
     runs-on: ubuntu-22.04
@@ -76,41 +86,29 @@ jobs:
           cache: 'npm'
           node-version: '16.14.2'
       - name: Install dependencies
-        run: npm ci
-      - name: Test
-        run: npm run test:team:back:unit
-  e2e:
-    needs: [lint, build, sonar]
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-          node-version: '16.14.2'
+        run: npm ci --loglevel=error
+      - name: Build core
+        run: npm run build -w core
+      - name: Build team-management
+        run: npm run build -w team-management
+      - name: Create env file
+        run: |
+            cd ./src/apps/team-management/api/src/
+            mkdir environments
+            cd environments
+            touch dev.env
+            echo "${{ secrets.DEV_ENV }}" | base64 --decode > dev.env
       - name: E2E tests
         uses: cypress-io/github-action@v2
         with:
-          command: npm run test:team:back:e2e
-          start: npm run start:team:back:dev
-          wait-on: 'http://localhost:3000/api'
+          command: npm run test -w api
+          start: npm run start:dev -w api
+          wait-on: 'http://localhost:3000/api/health'
   deploy:
-    needs: [test, e2e]
+    needs: [test]
     runs-on: ubuntu-22.04
     if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node 12
-        uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-          node-version: '16.14.2'
-      - name: Install Railway
-        run: npm i -g @railway/cli
-      - name: Deploy
-        run: railway up
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Deploiy
+        run: echo "Deploying..."
+
